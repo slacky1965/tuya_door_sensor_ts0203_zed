@@ -43,11 +43,11 @@ static void forceReportBattery(void *args) {
 }
 
 
-static void forceReportSwitchAction(void *args) {
+static void forceReportSwitchCfg(void *args) {
 
     struct report_t {
         u8 numAttr;
-        zclReport_t attr[1];
+        zclReport_t attr[3];
     };
 
     struct report_t report;
@@ -71,6 +71,24 @@ static void forceReportSwitchAction(void *args) {
         report.numAttr++;
     }
 
+    pAttrEntry = zcl_findAttribute(APP_ENDPOINT1, ZCL_CLUSTER_GEN_ON_OFF_SWITCH_CONFIG, ZCL_ATTRID_SWITCH_DELAY_ON);
+
+    if (pAttrEntry) {
+        report.attr[report.numAttr].attrID = pAttrEntry->id;
+        report.attr[report.numAttr].dataType = pAttrEntry->type;
+        report.attr[report.numAttr].attrData = pAttrEntry->data;
+        report.numAttr++;
+    }
+
+    pAttrEntry = zcl_findAttribute(APP_ENDPOINT1, ZCL_CLUSTER_GEN_ON_OFF_SWITCH_CONFIG, ZCL_ATTRID_SWITCH_DELAY_OFF);
+
+    if (pAttrEntry) {
+        report.attr[report.numAttr].attrID = pAttrEntry->id;
+        report.attr[report.numAttr].dataType = pAttrEntry->type;
+        report.attr[report.numAttr].attrData = pAttrEntry->data;
+        report.numAttr++;
+    }
+
     if (report.numAttr) {
         zcl_sendReportAttrsCmd(APP_ENDPOINT1, &dstEpInfo, TRUE, ZCL_FRAME_SERVER_CLIENT_DIR, ZCL_CLUSTER_GEN_ON_OFF_SWITCH_CONFIG, (zclReportCmd_t* )&report);
     }
@@ -81,7 +99,7 @@ int32_t forcedReportCb(void *arg) {
     if(zb_isDeviceJoinedNwk()){
 
         TL_SCHEDULE_TASK(forceReportBattery, NULL);
-        TL_SCHEDULE_TASK(forceReportSwitchAction, NULL);
+        TL_SCHEDULE_TASK(forceReportSwitchCfg, NULL);
 
     }
 
