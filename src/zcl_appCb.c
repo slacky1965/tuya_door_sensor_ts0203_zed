@@ -174,11 +174,20 @@ static void app_zclWriteReqCmd(uint8_t endPoint, uint16_t clusterId, zclWriteCmd
 
 //    printf("app_zclWriteReqCmd\r\n");
 
+    zcl_onOffSwitchCfgAttr_t *onoffCfgAttrs = zcl_onOffSwitchCfgAttrGet();
 
     if (clusterId == ZCL_CLUSTER_GEN_ON_OFF_SWITCH_CONFIG) {
         for (u8 i = 0; i < numAttr; i++) {
             if (attr[i].attrID == ZCL_ATTRID_SWITCH_ACTION) {
 //                printf("Switch action: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
+                zcl_onOffCfgAttr_save();
+            } else if (attr[i].attrID == ZCL_ATTRID_SWITCH_DELAY_ON) {
+                printf("Delay on: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
+                if (attr[i].attrData[0] > DELAY_ON_MAX) onoffCfgAttrs->delay_on = DELAY_ON_MAX;
+                zcl_onOffCfgAttr_save();
+            } else if (attr[i].attrID == ZCL_ATTRID_SWITCH_DELAY_OFF) {
+                printf("Delay off: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
+                if (attr[i].attrData[0] > DELAY_OFF_MAX) onoffCfgAttrs->delay_off = DELAY_OFF_MAX;
                 zcl_onOffCfgAttr_save();
             }
         }

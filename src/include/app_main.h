@@ -9,6 +9,7 @@
 #include "zcl_onoffSwitchCfg.h"
 #include "zcl_custom_attr.h"
 #include "app_door.h"
+#include "app_ias.h"
 #include "app_button.h"
 #include "app_led.h"
 #include "app_pm.h"

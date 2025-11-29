@@ -81,18 +81,6 @@ bdb_commissionSetting_t g_bdbCommissionSetting = {
     .touchlinkLqiThreshold = 0xA0,                                      /* threshold for touch-link scan req/resp command */
 };
 
-#if PM_ENABLE
-/**
- *  @brief Definition for wakeup source and level for PM
- */
-drv_pm_pinCfg_t g_switchPmCfg[] = {
-    {
-        BUTTON1,
-        PM_WAKEUP_LEVEL_LOW
-    },
-};
-#endif
-
 /**********************************************************************
  * LOCAL VARIABLES
  */
@@ -173,39 +161,26 @@ void user_app_init(void)
 
 }
 
-uint32_t tt = 0;
 
 void app_task(void) {
 
     button_handler();
     door_handler();
 
-    if (app_timer_exceed(tt, 7 * 1000)) {
-    	tt = app_timeout_get();
-    	printf("tt: %d\r\n", tt);
+    if (zb_isDeviceJoinedNwk()) {
+        if (app_timer_exceed(g_appCtx.read_sensor_time, TIMEOUT_60MIN)) {
+            g_appCtx.read_sensor_time = clock_time();
+            light_blink_stop();
+            light_blink_start(1, 30, 30);
+        }
     }
-
-//    if (zb_isDeviceJoinedNwk()) {
-//        if (clock_time_exceed(g_appCtx.read_sensor_time, config.read_sensors_period * 1000 * 1000)) {
-//            g_appCtx.read_sensor_time = clock_time();
-//            app_cht8305_measurement();
-//            light_blink_stop();
-//            light_blink_start(1, 30, 30);
-//
-//            proc_temp_hum_onoff();
-//        }
-//    }
 
     if(bdb_isIdle()) {
         report_handler();
 #if PM_ENABLE
         button_handler();
-        if(!button_idle()) {
-#if DEBUG_PM
+        if(!button_idle() && !door_idle()) {
             app_pm_lowPowerEnter();
-#else
-//            drv_pm_lowPowerEnter();
-#endif
         }
 #endif
     }
@@ -254,7 +229,7 @@ void user_init(bool isRetention)
 #endif
 
 #if PM_ENABLE
-    drv_pm_wakeupPinConfig(g_switchPmCfg, sizeof(g_switchPmCfg)/sizeof(drv_pm_pinCfg_t));
+    app_pm_wakeupPinConfig();
 #endif
 
     if(!isRetention) {
@@ -304,9 +279,9 @@ void user_init(bool isRetention)
     }else{
         /* Re-config phy when system recovery from deep sleep with retention */
         mac_phyReconfig();
-        if (zb_getLocalShortAddr() < 0xFFF8 && !g_appCtx.timerSetPollRateEvt && !g_appCtx.ota) {
-            app_setPollRate(TIMEOUT_5SEC);
-        }
+//        if (zb_getLocalShortAddr() < 0xFFF8 && !g_appCtx.timerSetPollRateEvt && !g_appCtx.ota) {
+//            app_setPollRate(TIMEOUT_5SEC);
+//        }
     }
 }
 

@@ -1,10 +1,29 @@
 #include "app_main.h"
 
-analog_reg_time_t analog_reg_time = {0};
+//analog_reg_time_t analog_reg_time = {0};
 
 uint32_t last_timer_duration = 0;
 
-void app_pm_lowPowerEnter(void) {
+#if PM_ENABLE
+/**
+ *  @brief Definition for wakeup source and level for PM
+ */
+static drv_pm_pinCfg_t g_doorPmCfg[] = {
+    {
+        DOOR_GPIO,
+        PM_WAKEUP_LEVEL_LOW
+    },
+    {
+        BUTTON1,
+        PM_WAKEUP_LEVEL_LOW
+    },
+};
+#endif
+
+
+#if PM_ENABLE && DEBUG_PM
+
+static void debug_pm_lowPowerEnter(void) {
 #if PM_ENABLE
     drv_pm_wakeup_src_e wakeupSrc = PM_WAKEUP_SRC_PAD;
     u32 sleepTime = 0;
@@ -63,4 +82,18 @@ void app_pm_lowPowerEnter(void) {
 #endif
 }
 
+#endif
 
+void app_pm_lowPowerEnter() {
+
+    drv_pm_wakeupPinLevelChange(g_doorPmCfg, sizeof(g_doorPmCfg)/sizeof(drv_pm_pinCfg_t));
+#if PM_ENABLE && DEBUG_PM
+    debug_pm_lowPowerEnter();
+#else
+    drv_pm_lowPowerEnter();
+#endif
+}
+
+void app_pm_wakeupPinConfig() {
+    drv_pm_wakeupPinConfig(g_doorPmCfg, sizeof(g_doorPmCfg)/sizeof(drv_pm_pinCfg_t));
+}

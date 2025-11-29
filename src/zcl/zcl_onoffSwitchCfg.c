@@ -36,9 +36,19 @@ nv_sts_t zcl_onOffCfgAttr_save(void) {
 
     st = nv_flashReadNew(1, NV_MODULE_ZCL,  NV_ITEM_ZCL_ON_OFF, sizeof(zcl_onOffSwitchCfgAttr_t), (u8*)&zcl_nv_onOffCfg);
 
-    if(st == NV_SUCC){
-        if(zcl_nv_onOffCfg.switchActions != g_zcl_onOffSwitchCfgAttrs.switchActions){
+    if(st == NV_SUCC) {
+        if(zcl_nv_onOffCfg.switchActions != g_zcl_onOffSwitchCfgAttrs.switchActions) {
             zcl_nv_onOffCfg.switchActions = g_zcl_onOffSwitchCfgAttrs.switchActions;
+            save = true;
+        }
+
+        if(zcl_nv_onOffCfg.delay_on != g_zcl_onOffSwitchCfgAttrs.delay_on) {
+            zcl_nv_onOffCfg.delay_on = g_zcl_onOffSwitchCfgAttrs.delay_on;
+            save = true;
+        }
+
+        if(zcl_nv_onOffCfg.delay_off != g_zcl_onOffSwitchCfgAttrs.delay_off) {
+            zcl_nv_onOffCfg.delay_off = g_zcl_onOffSwitchCfgAttrs.delay_off;
             save = true;
         }
 
@@ -48,6 +58,8 @@ nv_sts_t zcl_onOffCfgAttr_save(void) {
 
     }else if(st == NV_ITEM_NOT_FOUND){
         zcl_nv_onOffCfg.switchActions = g_zcl_onOffSwitchCfgAttrs.switchActions;
+        zcl_nv_onOffCfg.delay_on = g_zcl_onOffSwitchCfgAttrs.delay_on;
+        zcl_nv_onOffCfg.delay_off = g_zcl_onOffSwitchCfgAttrs.delay_off;
 
         st = nv_flashWriteNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_ON_OFF, sizeof(zcl_onOffSwitchCfgAttr_t), (u8*)&zcl_nv_onOffCfg);
     }
@@ -72,8 +84,12 @@ nv_sts_t zcl_onOffCfgAttr_restore(void) {
 
     if(st == NV_SUCC){
         g_zcl_onOffSwitchCfgAttrs.switchActions = zcl_nv_onOffCfg.switchActions;
+        g_zcl_onOffSwitchCfgAttrs.delay_on = zcl_nv_onOffCfg.delay_on;
+        g_zcl_onOffSwitchCfgAttrs.delay_off = zcl_nv_onOffCfg.delay_off;
     } else {
         g_zcl_onOffSwitchCfgAttrs.switchActions = ZCL_SWITCH_ACTION_OFF_ON;
+        g_zcl_onOffSwitchCfgAttrs.delay_on = DELAY_ON_MIN;
+        g_zcl_onOffSwitchCfgAttrs.delay_off = DELAY_OFF_MIN;
     }
 #else
     st = NV_ENABLE_PROTECT_ERROR;

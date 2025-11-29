@@ -234,16 +234,20 @@ const zclAttrInfo_t iasZone_attrTbl[] =
 /* On/Off Config */
 
 zcl_onOffSwitchCfgAttr_t g_zcl_onOffSwitchCfgAttrs = {
-	.switchType       = ZCL_SWITCH_TYPE_TOGGLE,
-    .switchActions    = ZCL_SWITCH_ACTION_OFF_ON,
+	.switchType     = ZCL_SWITCH_TYPE_TOGGLE,
+    .switchActions  = ZCL_SWITCH_ACTION_OFF_ON,
+    .delay_on       = DELAY_ON_MIN,
+    .delay_off      = DELAY_OFF_MIN,
 };
 
 const zclAttrInfo_t onoff_switch_cfg_attrTbl[] =
 {
     { ZCL_ATTRID_SWITCH_TYPE,               ZCL_ENUM8,  R,  (u8*)&g_zcl_onOffSwitchCfgAttrs.switchType    },
     { ZCL_ATTRID_SWITCH_ACTION,             ZCL_ENUM8,  RWR,(u8*)&g_zcl_onOffSwitchCfgAttrs.switchActions },
+    { ZCL_ATTRID_SWITCH_DELAY_ON,           ZCL_UINT8,  RWR,(u8*)&g_zcl_onOffSwitchCfgAttrs.delay_on      },
+    { ZCL_ATTRID_SWITCH_DELAY_OFF,          ZCL_UINT8,  RWR,(u8*)&g_zcl_onOffSwitchCfgAttrs.delay_off     },
 
-    { ZCL_ATTRID_GLOBAL_CLUSTER_REVISION,   ZCL_UINT16, R,  (u8*)&zcl_attr_global_clusterRevision},
+    { ZCL_ATTRID_GLOBAL_CLUSTER_REVISION,   ZCL_UINT16, R,  (u8*)&zcl_attr_global_clusterRevision         },
 };
 
 #define ZCL_ON_OFF_SWITCH_CFG_ATTR1_NUM       sizeof(onoff_switch_cfg_attrTbl) / sizeof(zclAttrInfo_t)

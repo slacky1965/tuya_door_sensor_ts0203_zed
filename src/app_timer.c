@@ -26,7 +26,7 @@ uint32_t app_timeout_get() {
 
 void app_timer_init() {
 	if (!app_timer.timerAPPEvt) {
-		app_timer.timerAPPEvt = TL_ZB_TIMER_SCHEDULE(app_timerCb, NULL, TIMEOUT_30SEC); //APP_TIMER_PERIOD);
+		app_timer.timerAPPEvt = TL_ZB_TIMER_SCHEDULE(app_timerCb, NULL, APP_TIMER_PERIOD);
 
 		 printf("repiod: %d, timeout: %d\r\n", app_timer.timerAPPEvt->period, app_timer.timerAPPEvt->timeout);
 
