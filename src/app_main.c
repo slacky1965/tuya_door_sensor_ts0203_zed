@@ -170,6 +170,7 @@ void app_task(void) {
     if (zb_isDeviceJoinedNwk()) {
         if (app_timer_exceed(g_appCtx.read_sensor_time, TIMEOUT_60MIN)) {
             g_appCtx.read_sensor_time = clock_time();
+            printf("read_sensor_time: %d\r\n", g_appCtx.read_sensor_time);
             light_blink_stop();
             light_blink_start(1, 30, 30);
         }
@@ -266,12 +267,6 @@ void user_init(bool isRetention)
         bdb_defaultReportingCfg(APP_ENDPOINT1, HA_PROFILE_ID, ZCL_CLUSTER_GEN_POWER_CFG,
                 ZCL_ATTRID_BATTERY_PERCENTAGE_REMAINING, REPORTING_BATTERY_MIN, REPORTING_BATTERY_MAX, (uint8_t *)&reportableChange);
 
-//        uint16_t reportableChange_u16 = 10;
-//        bdb_defaultReportingCfg(APP_ENDPOINT1, HA_PROFILE_ID, ZCL_CLUSTER_MS_TEMPERATURE_MEASUREMENT,
-//                ZCL_TEMPERATURE_MEASUREMENT_ATTRID_MEASUREDVALUE, REPORTING_MIN, REPORTING_MAX, (uint8_t *)&reportableChange_u16);
-//        bdb_defaultReportingCfg(APP_ENDPOINT1, HA_PROFILE_ID, ZCL_CLUSTER_MS_RELATIVE_HUMIDITY,
-//                ZCL_RELATIVE_HUMIDITY_MEASUREMENT_ATTRID_MEASUREDVALUE, REPORTING_MIN, REPORTING_MAX, (uint8_t *)&reportableChange_u16);
-
         /* Initialize BDB */
         uint8_t repower = drv_pm_deepSleep_flag_get() ? 0 : 1;
         bdb_init((af_simple_descriptor_t *)&app_ep1Desc, &g_bdbCommissionSetting, &g_zbBdbCb, repower);
@@ -279,9 +274,6 @@ void user_init(bool isRetention)
     }else{
         /* Re-config phy when system recovery from deep sleep with retention */
         mac_phyReconfig();
-//        if (zb_getLocalShortAddr() < 0xFFF8 && !g_appCtx.timerSetPollRateEvt && !g_appCtx.ota) {
-//            app_setPollRate(TIMEOUT_5SEC);
-//        }
     }
 }
 

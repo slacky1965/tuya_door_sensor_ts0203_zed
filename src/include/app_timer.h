@@ -1,7 +1,7 @@
 #ifndef SRC_INCLUDE_APP_TIMER_H_
 #define SRC_INCLUDE_APP_TIMER_H_
 
-#define APP_TIMER_PERIOD	TIMEOUT_2HOUR
+#define APP_TIMER_PERIOD	TIMEOUT_6HOUR
 
 typedef struct {
     ev_timer_event_t *timerAPPEvt;

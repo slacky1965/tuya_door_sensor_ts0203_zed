@@ -47,6 +47,7 @@ MAKE_OTA = $(TOOLS_PATH)/zigbee_ota.py
 INCLUDE_PATHS := \
 -I$(SDK_PATH)/platform \
 -I$(SDK_PATH)/proj/common \
+-I$(SDK_PATH)/proj/drivers \
 -I$(SDK_PATH)/proj \
 -I$(SDK_PATH)/platform \
 -I$(SDK_PATH)/platform/chip_8258 \
@@ -157,8 +158,11 @@ reset:
 flash-orig-write:
 	@python3 $(TOOLS_PATH)/TlsrPgm.py -p$(DOWNLOAD_PORT) -z11 -a 100 -s -m we 0 $(BIN_PATH)/tuya_door_sensor_ts0203_orig.bin
 	
-flash-orig-read:
+flash-orig-read-512:
 	@python3 $(TOOLS_PATH)/TlsrPgm.py -p$(DOWNLOAD_PORT) -z11 -a 100 -s -m rf 0 0x80000 tuya_door_sensor_ts0203_orig.bin
+	
+flash-orig-read-1024:
+	@python3 $(TOOLS_PATH)/TlsrPgm.py -p$(DOWNLOAD_PORT) -z11 -a 100 -s -m rf 0 0x100000 tuya_door_sensor_ts0203_orig.bin
 	
 test-flash:
 	@python3 $(TOOLS_PATH)/TlsrPgm.py -p$(DOWNLOAD_PORT) -z11 -s i
