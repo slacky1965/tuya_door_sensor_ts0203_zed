@@ -52,6 +52,8 @@ void door_handler() {
             }
             if (open_count == 2) {
                 g_appCtx.open = true;
+                light_blink_stop();
+                light_blink_start(1, 30, 30);
                 printf("door is open\r\n");
                 open_count++;
                 door_ias(DOOR_OPEN);
@@ -95,6 +97,8 @@ void door_handler() {
             }
             if (close_count == 2) {
                 g_appCtx.open = false;
+                light_blink_stop();
+                light_blink_start(1, 30, 30);
                 printf("door is close\r\n");
                 close_count++;
                 door_ias(DOOR_CLOSE);

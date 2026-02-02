@@ -152,13 +152,6 @@ void user_app_init(void)
     g_appCtx.timerBatteryEvt = TL_ZB_TIMER_SCHEDULE(batteryCb, NULL, BATTERY_TIMER_INTERVAL);
 #endif
 
-    app_timer_init();
-
-//#if UART_PRINTF_MODE
-//    printf("IMAGE_TYPE: 0x%x\r\n", IMAGE_TYPE);
-//    printf("FILE_VERSION: 0x%x\r\n", FILE_VERSION);
-//#endif
-
 }
 
 
@@ -166,15 +159,6 @@ void app_task(void) {
 
     button_handler();
     door_handler();
-
-    if (zb_isDeviceJoinedNwk()) {
-        if (app_timer_exceed(g_appCtx.read_sensor_time, TIMEOUT_60MIN)) {
-            g_appCtx.read_sensor_time = clock_time();
-            printf("read_sensor_time: %d\r\n", g_appCtx.read_sensor_time);
-            light_blink_stop();
-            light_blink_start(1, 30, 30);
-        }
-    }
 
     if(bdb_isIdle()) {
         report_handler();

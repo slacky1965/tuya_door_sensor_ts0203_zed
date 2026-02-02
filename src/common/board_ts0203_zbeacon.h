@@ -1,11 +1,7 @@
-#pragma once
+#ifndef SRC_COMMON_BOARD_TS0203_ZBEACON_H_
+#define SRC_COMMON_BOARD_TS0203_ZBEACON_H_
 
-/* Enable C linkage for C++ Compilers: */
-#if defined(__cplusplus)
-extern "C" {
-#endif
-
-/* boadr on BT3L (TLSR8250F512ET32) */
+/* board TS0203 Zbeacon on BT3L (TLSR8250F512ET32) */
 
 /**************************** Configure UART ***************************************/
 #if UART_PRINTF_MODE
@@ -20,7 +16,7 @@ extern "C" {
 
 #define LED_ON                  1
 #define LED_OFF                 0
-#define LED1		            GPIO_PC3
+#define LED1                    GPIO_PC3
 #define PC3_FUNC                AS_GPIO
 #define PC3_OUTPUT_ENABLE       ON
 #define PC3_INPUT_ENABLE        OFF
@@ -60,7 +56,4 @@ enum {
 #define KB_SCAN_PINS   {BUTTON1}
 
 
-/* Disable C linkage for C++ Compilers: */
-#if defined(__cplusplus)
-}
-#endif
+#endif /* SRC_COMMON_BOARD_TS0203_ZBEACON_H_ */

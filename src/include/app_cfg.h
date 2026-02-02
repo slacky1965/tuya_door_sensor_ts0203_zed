@@ -87,19 +87,6 @@ extern "C" {
 #define TOUCHLINK_SUPPORT				OFF
 #define FIND_AND_BIND_SUPPORT			OFF
 
-/* Board ID */
-#define BOARD_826x_EVK                  0
-#define BOARD_826x_DONGLE               1
-#define BOARD_826x_DONGLE_PA            2
-#define BOARD_8258_EVK                  3
-#define BOARD_8258_EVK_V1P2             4//C1T139A30_V1.2
-#define BOARD_8258_DONGLE               5
-#define BOARD_8278_EVK                  6
-#define BOARD_8278_DONGLE               7
-#define BOARD_B91_EVK                   8
-#define BOARD_B91_DONGLE                9
-#define BOARD_TS0203	                10
-
 /* Board define */
 #if defined(MCU_CORE_826x)
 #if !PA_ENABLE
@@ -112,7 +99,6 @@ extern "C" {
 #if (CHIP_TYPE == TLSR_8258_1M)
     #define FLASH_CAP_SIZE_1M           1
 #endif
-    #define BOARD                       BOARD_TS0203
     #define CLOCK_SYS_CLOCK_HZ          48000000
     #define NV_ITEM_APP_USER_CFG        (NV_ITEM_APP_GP_TRANS_TABLE + 1)    // see sdk/proj/drivers/drv_nv.h
 #elif defined(MCU_CORE_8278)
@@ -128,28 +114,12 @@ extern "C" {
 #endif
 
 /* Board include */
-#if (BOARD == BOARD_826x_EVK)
-    #include "board_826x_evk.h"
-#elif (BOARD == BOARD_826x_DONGLE)
-    #include "board_826x_dongle.h"
-#elif (BOARD == BOARD_826x_DONGLE_PA)
-    #include "board_826x_dongle_pa.h"
-#elif (BOARD == BOARD_8258_DONGLE)
-    #include "board_8258_dongle.h"
-#elif (BOARD == BOARD_8258_EVK)
-    #include "board_8258_evk.h"
-#elif (BOARD == BOARD_8258_EVK_V1P2)
-    #include "board_8258_evk_v1p2.h"
-#elif (BOARD == BOARD_8278_EVK)
-    #include "board_8278_evk.h"
-#elif (BOARD == BOARD_8278_DONGLE)
-    #include "board_8278_dongle.h"
-#elif (BOARD == BOARD_B91_EVK)
-    #include "board_b91_evk.h"
-#elif (BOARD == BOARD_B91_DONGLE)
-    #include "board_b91_dongle.h"
-#elif (BOARD == BOARD_TS0203)
-    #include "board_ts0203.h"
+#if defined(BOARD)
+#include "board_ts0203_zbeacon.h"
+//#include "board_ihseno_ic_v0.h"
+//#include "board_zbeacon.h"
+//#include "board_zg_227zs.h"
+//#include "board_th01_zbeacon.h"
 #endif
 
 

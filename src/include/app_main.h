@@ -18,7 +18,6 @@
 #include "app_reporting.h"
 #include "app_endpoint_cfg.h"
 #include "app_utility.h"
-#include "app_timer.h"
 
 typedef struct {
     uint8_t keyType; /* CERTIFICATION_KEY or MASTER_KEY key for touch-link or distribute network

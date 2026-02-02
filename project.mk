@@ -9,7 +9,6 @@ OBJS += \
 $(OUT_PATH)/$(SRC_PATH)/common/main.o \
 $(OUT_PATH)/$(SRC_PATH)/common/flash.o \
 $(OUT_PATH)/$(SRC_PATH)/zcl/zcl_onoffSwitchCfg.o \
-$(OUT_PATH)/$(SRC_PATH)/app_timer.o \
 $(OUT_PATH)/$(SRC_PATH)/app_door.o \
 $(OUT_PATH)/$(SRC_PATH)/app_ias.o \
 $(OUT_PATH)/$(SRC_PATH)/app_button.o \
