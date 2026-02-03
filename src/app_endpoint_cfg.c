@@ -262,7 +262,8 @@ const zcl_specClusterInfo_t g_appEp1ClusterList[] = {
     {ZCL_CLUSTER_GEN_IDENTIFY,               MANUFACTURER_CODE_NONE, ZCL_IDENTIFY_ATTR_NUM,          identify_attrTbl,          zcl_identify_register,                  app_identifyCb      },
     {ZCL_CLUSTER_GEN_POWER_CFG,              MANUFACTURER_CODE_NONE, ZCL_POWER_CFG_ATTR_NUM,         powerCfg_attrTbl,          zcl_powerCfg_register,                  app_powerCfgCb      },
 #ifdef ZCL_GROUP
-    {ZCL_CLUSTER_GEN_GROUPS,                 MANUFACTURER_CODE_NONE, ZCL_GROUP_ATTR_NUM,             group_attrTbl,             zcl_group_register,                     NULL                },
+    {ZCL_CLUSTER_GEN_GROUPS,                 MANUFACTURER_CODE_NONE, 0,                               NULL,                     zcl_group_register,                     app_groupCb         },
+//    {ZCL_CLUSTER_GEN_GROUPS,                 MANUFACTURER_CODE_NONE, ZCL_GROUP_ATTR_NUM,             group_attrTbl,             zcl_group_register,                     app_groupCb         },
 #endif
 #ifdef ZCL_SCENE
     {ZCL_CLUSTER_GEN_SCENES,                 MANUFACTURER_CODE_NONE, ZCL_SCENE_ATTR_NUM,             scene_attrTbl,             zcl_scene_register,                     app_sceneCb         },
