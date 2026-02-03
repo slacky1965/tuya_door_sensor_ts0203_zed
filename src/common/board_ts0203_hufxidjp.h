@@ -1,16 +1,14 @@
-#ifndef SRC_COMMON_BOARD_TS0203_ZBEACON_H_
-#define SRC_COMMON_BOARD_TS0203_ZBEACON_H_
+#ifndef SRC_COMMON_BOARD_TS0203_HUFXIDJP_H_
+#define SRC_COMMON_BOARD_TS0203_HUFXIDJP_H_
 
-#if (BOARD == BOARD_TS0203_ZBEACON)
-
-/* board TS0203 Zbeacon on BT3L (TLSR8250F512ET32) */
+#if (BOARD == BOARD_TS0203_TZ3000_hufxidjp)
 
 /**********************************************************************
  * Product Information
  */
 
 #define ZCL_BASIC_MFG_NAME     {10,'S','l','a','c','k','y','-','D','I','Y'}
-#define ZCL_BASIC_MODEL_ID     {14,'T','S','0','2','0','3','-','z','2','0','-','S','l','D'}
+#define ZCL_BASIC_MODEL_ID     {14,'T','S','0','2','0','3','-','z','2','6','-','S','l','D'}
 
 /**************************** Configure UART ***************************************/
 #if UART_PRINTF_MODE
@@ -25,29 +23,29 @@
 
 #define LED_ON                  1
 #define LED_OFF                 0
-#define LED1                    GPIO_PC3
-#define PC3_FUNC                AS_GPIO
-#define PC3_OUTPUT_ENABLE       ON
-#define PC3_INPUT_ENABLE        OFF
-#define PC3_DATA_OUT            LED_OFF
+#define LED1                    GPIO_PC2
+#define PC2_FUNC                AS_GPIO
+#define PC2_OUTPUT_ENABLE       ON
+#define PC2_INPUT_ENABLE        OFF
+#define PC2_DATA_OUT            LED_OFF
 
 
 /************************* Configure DOOR GPIO **************************************/
-#define DOOR_GPIO               GPIO_PC0
-#define PC0_INPUT_ENABLE        ON
-#define PC0_DATA_OUT            OFF
-#define PC0_OUTPUT_ENABLE       OFF
-#define PC0_FUNC                AS_GPIO
+#define DOOR_GPIO               GPIO_PB5
+#define PB5_INPUT_ENABLE        ON
+#define PB5_DATA_OUT            OFF
+#define PB5_OUTPUT_ENABLE       OFF
+#define PB5_FUNC                AS_GPIO
 //#define PULL_WAKEUP_SRC_PC0     PM_PIN_PULLDOWN_100K //PM_PIN_PULLUP_1M
 
 /************************* Configure KEY GPIO ***************************************/
 #define MAX_BUTTON_NUM  1
 
-#define BUTTON1                 GPIO_PB5
-#define PB5_FUNC                AS_GPIO
-#define PB5_OUTPUT_ENABLE       OFF
-#define PB5_INPUT_ENABLE        ON
-#define PULL_WAKEUP_SRC_PB5     PM_PIN_PULLUP_1M
+#define BUTTON1                 GPIO_PC3
+#define PC3_FUNC                AS_GPIO
+#define PC3_OUTPUT_ENABLE       OFF
+#define PC3_INPUT_ENABLE        ON
+#define PULL_WAKEUP_SRC_PC3     PM_PIN_PULLUP_1M
 
 #define PM_WAKEUP_LEVEL         PM_WAKEUP_LEVEL_LOW // only for KEY
 
@@ -64,6 +62,7 @@ enum {
 #define KB_DRIVE_PINS  {NULL }
 #define KB_SCAN_PINS   {BUTTON1}
 
-#endif /* (BOARD == BOARD_TS0203_ZBEACON) */
+#endif /* (BOARD == BOARD_TS0203_TZ3000_hufxidjp) */
 
-#endif /* SRC_COMMON_BOARD_TS0203_ZBEACON_H_ */
+
+#endif /* SRC_COMMON_BOARD_TS0203_HUFXIDJP_H_ */

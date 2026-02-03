@@ -54,14 +54,6 @@ extern "C" {
 #define APP_OTA_PERIODIC_QUERY_INTERVAL (1080 * 60)     /* start the OTA request after the set seconds */
 
 /**********************************************************************
- * Product Information
- */
-
-#define ZCL_BASIC_MFG_NAME     {10,'S','l','a','c','k','y','-','D','I','Y'}
-#define ZCL_BASIC_MODEL_ID     {12,'T','S','0','2','0','3','-','z','-','S','l','D'}
-
-
-/**********************************************************************
  * Version configuration
  */
 #include "version_cfg.h"
@@ -116,10 +108,7 @@ extern "C" {
 /* Board include */
 #if defined(BOARD)
 #include "board_ts0203_zbeacon.h"
-//#include "board_ihseno_ic_v0.h"
-//#include "board_zbeacon.h"
-//#include "board_zg_227zs.h"
-//#include "board_th01_zbeacon.h"
+#include "board_ts0203_hufxidjp.h"
 #endif
 
 
@@ -149,6 +138,7 @@ extern "C" {
 /**********************************************************************
  * ZCL cluster support setting
  */
+#define ZCL_GROUP_SUPPORT                           ON
 #define ZCL_POWER_CFG_SUPPORT                       ON
 #define ZCL_OTA_SUPPORT                             ON
 #if TOUCHLINK_SUPPORT

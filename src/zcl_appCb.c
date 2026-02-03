@@ -559,7 +559,7 @@ status_t app_powerCfgCb(zclIncomingAddrInfo_t *pAddrInfo, uint8_t cmdId, void *c
  */
 static void app_zclAddGroupRspCmdHandler(zcl_addGroupRsp_t *pAddGroupRsp)
 {
-
+    printf("app_zclAddGroupRspCmdHandler\r\n");
 }
 
 /*********************************************************************
@@ -573,7 +573,7 @@ static void app_zclAddGroupRspCmdHandler(zcl_addGroupRsp_t *pAddGroupRsp)
  */
 static void app_zclViewGroupRspCmdHandler(zcl_viewGroupRsp_t *pViewGroupRsp)
 {
-
+    printf("app_zclViewGroupRspCmdHandler\r\n");
 }
 
 /*********************************************************************
@@ -587,7 +587,7 @@ static void app_zclViewGroupRspCmdHandler(zcl_viewGroupRsp_t *pViewGroupRsp)
  */
 static void app_zclRemoveGroupRspCmdHandler(zcl_removeGroupRsp_t *pRemoveGroupRsp)
 {
-
+    printf("app_zclRemoveGroupRspCmdHandler\r\n");
 }
 
 /*********************************************************************
@@ -601,7 +601,7 @@ static void app_zclRemoveGroupRspCmdHandler(zcl_removeGroupRsp_t *pRemoveGroupRs
  */
 static void app_zclGetGroupMembershipRspCmdHandler(zcl_getGroupMembershipRsp_t *pGetGroupMembershipRsp)
 {
-
+    printf("app_zclGetGroupMembershipRspCmdHandler\r\n");
 }
 
 /*********************************************************************
@@ -617,6 +617,7 @@ static void app_zclGetGroupMembershipRspCmdHandler(zcl_getGroupMembershipRsp_t *
  */
 status_t app_groupCb(zclIncomingAddrInfo_t *pAddrInfo, uint8_t cmdId, void *cmdPayload)
 {
+    printf("app_groupCb\r\n");
 	if(pAddrInfo->dstEp == APP_ENDPOINT1){
 		if(pAddrInfo->dirCluster == ZCL_FRAME_SERVER_CLIENT_DIR){
 			switch(cmdId){

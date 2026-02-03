@@ -29,6 +29,13 @@ typedef struct{
 }zcl_identifyAttr_t;
 
 /**
+ *  @brief Defined for group cluster attributes
+ */
+typedef struct{
+    uint8_t  nameSupport;
+}zcl_groupAttr_t;
+
+/**
  *  @brief Defined for power configuration cluster attributes
  */
 typedef struct{
@@ -63,9 +70,11 @@ extern uint8_t APP_EP1_CB_CLUSTER_NUM;
 /* Attributes */
 extern zcl_basicAttr_t              g_zcl_basicAttrs;
 extern zcl_identifyAttr_t           g_zcl_identifyAttrs;
+extern zcl_groupAttr_t              g_zcl_groupAttrs;
 extern zcl_onOffSwitchCfgAttr_t     g_zcl_onOffSwitchCfgAttrs;
 extern zcl_iasZoneAttr_t        	g_zcl_iasZoneAttrs;
 
+#define zcl_groupAttrsGet()         g_zcl_groupAttrs
 #define zcl_onOffSwitchCfgAttrGet() &g_zcl_onOffSwitchCfgAttrs
 #define zcl_iasZoneAttrGet()    	&g_zcl_iasZoneAttrs
 
