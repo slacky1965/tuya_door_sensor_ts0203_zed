@@ -31,8 +31,8 @@
 #define BOARD_TS0203_TZ3000_hufxidjp        0x26
 
 #ifndef BOARD
-#define BOARD                               BOARD_TS0203_ZBEACON
-//#define BOARD                               BOARD_TS0203_TZ3000_hufxidjp
+//#define BOARD                               BOARD_TS0203_ZBEACON
+#define BOARD                               BOARD_TS0203_TZ3000_hufxidjp
 #endif
 
 #define APP_RELEASE                         0x10        //app release 1.0
@@ -41,13 +41,6 @@
 #define STACK_RELEASE                       0x30        //stack release 3.0
 #define STACK_BUILD                         0x01        //stack build 01
 #define HW_VERSION                          0x01
-
-#ifndef ZCL_BASIC_MFG_NAME
-    #define ZCL_BASIC_MFG_NAME     {6,'T','E','L','I','N','K'}
-#endif
-#ifndef ZCL_BASIC_MODEL_ID
-    #define ZCL_BASIC_MODEL_ID     {8,'T','L','S','R','8','2','5','x'}
-#endif
 
 #ifndef BUILD_DATE
 #define BUILD_DATE "20250611"
