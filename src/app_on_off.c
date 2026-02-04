@@ -1,8 +1,5 @@
 #include "app_main.h"
 
-//static bool sw_onoff = false;
-
-
 static void cmdOnOffSend(uint8_t ep, epInfo_t *dstEpInfo, uint8_t command) {
 
     /* command 0x00 - off, 0x01 - on, 0x02 - toggle */
