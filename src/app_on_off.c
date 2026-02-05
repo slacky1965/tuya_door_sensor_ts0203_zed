@@ -1,8 +1,5 @@
 #include "app_main.h"
 
-//static bool sw_onoff = false;
-
-
 static void cmdOnOffSend(uint8_t ep, epInfo_t *dstEpInfo, uint8_t command) {
 
     /* command 0x00 - off, 0x01 - on, 0x02 - toggle */
@@ -40,6 +37,7 @@ void cmdOnOff(uint8_t command) {
     uint8_t groupCnt = 0;
     aps_group_list_get(&groupCnt, groupList);
 
+    /* command for groups */
     dstEpInfo.dstAddrMode = APS_SHORT_GROUPADDR_NOEP;
     for (uint8_t i = 0; i < groupCnt; i++) {
         dstEpInfo.dstAddr.shortAddr = groupList[i];
@@ -47,6 +45,7 @@ void cmdOnOff(uint8_t command) {
 //        printf("groupAddr: 0x%04x\r\n", dstEpInfo.dstAddr.shortAddr);
     }
 
+    /* command when binding */
     TL_SETSTRUCTCONTENT(dstEpInfo, 0);
     dstEpInfo.profileId = HA_PROFILE_ID;
     dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
