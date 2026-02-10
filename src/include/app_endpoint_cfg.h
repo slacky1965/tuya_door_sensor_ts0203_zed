@@ -60,6 +60,9 @@ typedef struct {
     uint8_t switchActions;
     uint8_t delay_on;
     uint8_t delay_off;
+    uint8_t model;
+    uint8_t on_cmd_off;
+    uint8_t off_cmd_off;
 } zcl_onOffSwitchCfgAttr_t;
 
 extern const zcl_specClusterInfo_t g_appEp1ClusterList[];

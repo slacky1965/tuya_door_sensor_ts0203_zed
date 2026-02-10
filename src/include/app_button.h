@@ -1,5 +1,5 @@
-#ifndef SRC_INCLUDE_APP_BUTTON_H_
-#define SRC_INCLUDE_APP_BUTTON_H_
+#ifndef SRC_INCLUDE_APP_BUTTON_H_OLD_
+#define SRC_INCLUDE_APP_BUTTON_H_OLD_
 
 #define MAX_BUTTON_MULTI_PRESSED    5
 
@@ -17,7 +17,9 @@ typedef struct {
     uint8_t     state;
 } button_t;
 
+
 void button_handler(void);
 u8 button_idle();
+void kb_drv_init();
 
-#endif /* SRC_INCLUDE_APP_BUTTON_H_ */
+#endif /* SRC_INCLUDE_APP_BUTTON_H_OLD_ */

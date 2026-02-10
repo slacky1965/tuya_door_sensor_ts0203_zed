@@ -2,13 +2,17 @@
 OUT_DIR += \
 /$(SRC_PATH) \
 /$(SRC_PATH)/zcl \
-/$(SRC_PATH)/cht8305 \
+/$(SRC_PATH)/drv_sdk \
 /$(SRC_PATH)/common
  
 OBJS += \
+$(OUT_PATH)/$(SRC_PATH)/drv_sdk/drv_keyboard.o \
+$(OUT_PATH)/$(SRC_PATH)/drv_sdk/drv_putchar.o \
 $(OUT_PATH)/$(SRC_PATH)/common/main.o \
 $(OUT_PATH)/$(SRC_PATH)/common/flash.o \
+$(OUT_PATH)/$(SRC_PATH)/common/factory_reset.o \
 $(OUT_PATH)/$(SRC_PATH)/zcl/zcl_onoffSwitchCfg.o \
+$(OUT_PATH)/$(SRC_PATH)/app_device.o \
 $(OUT_PATH)/$(SRC_PATH)/app_door.o \
 $(OUT_PATH)/$(SRC_PATH)/app_ias.o \
 $(OUT_PATH)/$(SRC_PATH)/app_button.o \

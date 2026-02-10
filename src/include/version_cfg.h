@@ -27,16 +27,8 @@
 
 #include "../common/comm_cfg.h"
 
-#define BOARD_TS0203_ZBEACON                0x20
-#define BOARD_TS0203_TZ3000_hufxidjp        0x26
-
-#ifndef BOARD
-//#define BOARD                               BOARD_TS0203_ZBEACON
-#define BOARD                               BOARD_TS0203_TZ3000_hufxidjp
-#endif
-
 #define APP_RELEASE                         0x10        //app release 1.0
-#define APP_BUILD                           0x01        //app build 01, full version - v1.0.01
+#define APP_BUILD                           0x02        //app build 02, full version - v1.0.02
 
 #define STACK_RELEASE                       0x30        //stack release 3.0
 #define STACK_BUILD                         0x01        //stack build 01
@@ -87,17 +79,16 @@
  * 0x1D - Tuya relay QS-Zigbee-SEC02 _TZ3000_m8f3z8ju
  * 0x1E - Tuya relay QS-Zigbee-SEC01 _TZ3000_hdc8bbha
  * 0x1F - Tuya plug TS011F with monitoring
- * 0x20 - Tuya door/window sensor TS0203 Zbeacon
+ * 0x20 - Tuya door/window sensor TS0203
  * 0x21 - Tuya Temperature and Humidity sensors (board_ihseno_ic_v0.h)
  * 0x22 - Tuya Temperature and Humidity sensors (board_zbeacon.h)
  * 0x23 - Tuya Temperature and Humidity sensors (board_zg_227zs.h)
  * 0x24 - Tuya Temperature and Humidity sensors (board_th01_zbeacon.h)
  * 0x25 - Tuya mini switch ZG-301Z Hobean
- * 0x26 - Tuya door/window sensor TS0203 _TZ3000_hufxidjp
  *
  */
 
-#define IMAGE_TYPE_APP              (BOARD | (IMAGE_TYPE_BOOT_FLAG << 7))
+#define IMAGE_TYPE_APP              (0x20 | (IMAGE_TYPE_BOOT_FLAG << 7))
 
 /*********************************************************************************************
  * During OTA upgrade, the upgraded device will check the rules of the following three fields.

@@ -8,16 +8,17 @@ uint32_t last_timer_duration = 0;
 /**
  *  @brief Definition for wakeup source and level for PM
  */
-static drv_pm_pinCfg_t g_doorPmCfg[] = {
-    {
-        DOOR_GPIO,
-        PM_WAKEUP_LEVEL_LOW
-    },
-    {
-        BUTTON1,
-        PM_WAKEUP_LEVEL_LOW
-    },
-};
+static drv_pm_pinCfg_t g_doorPmCfg[2];
+//= {
+//    {
+//        DOOR_GPIO,
+//        PM_WAKEUP_LEVEL_LOW
+//    },
+//    {
+//        BUTTON1,
+//        PM_WAKEUP_LEVEL_LOW
+//    },
+//};
 #endif
 
 
@@ -84,6 +85,7 @@ static void debug_pm_lowPowerEnter(void) {
 
 #endif
 
+#if PM_ENABLE
 void app_pm_lowPowerEnter() {
 
     drv_pm_wakeupPinLevelChange(g_doorPmCfg, sizeof(g_doorPmCfg)/sizeof(drv_pm_pinCfg_t));
@@ -95,5 +97,11 @@ void app_pm_lowPowerEnter() {
 }
 
 void app_pm_wakeupPinConfig() {
+    g_doorPmCfg[0].wakeupPin = device->button_gpio.gpio;
+    g_doorPmCfg[0].wakeupLevel = PM_WAKEUP_LEVEL_LOW;
+    g_doorPmCfg[1].wakeupPin = device->door_gpio.gpio;
+    g_doorPmCfg[1].wakeupLevel = PM_WAKEUP_LEVEL_LOW;
     drv_pm_wakeupPinConfig(g_doorPmCfg, sizeof(g_doorPmCfg)/sizeof(drv_pm_pinCfg_t));
 }
+
+#endif

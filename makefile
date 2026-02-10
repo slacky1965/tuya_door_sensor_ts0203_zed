@@ -1,22 +1,26 @@
 # Set Project Name
-PROJECT_NAME ?= tuya_door_sensor_0x20_zed
-PROJECT_DEF ?= "-DBOARD=BOARD_TS0203_ZBEACON"
+PROJECT_NAME = tuya_door_sensor_ts0203_zed
+PROJECT_MODEL ?= _model0
 
 # Set the serial port number for downloading the firmware
 DOWNLOAD_PORT := COM3
 
-ifeq ($(PROJECT_NAME),tuya_door_sensor_0x20_zed)
+ifeq ($(PROJECT_MODEL),_model1)
 	MANUF_CODE = 4742
 	IMAGE_TYPE = 514
+	PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_DOOR_1"
 else
-	ifeq ($(PROJECT_NAME),tuya_door_sensor_0x26_zed)
+	ifeq ($(PROJECT_MODEL),_model2)
 		MANUF_CODE = 4417
 		IMAGE_TYPE = 54179
+		PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_DOOR_2"
 	else
 		MANUF_CODE = 4417
 		IMAGE_TYPE = 54179
+		PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_DOOR_NONE"
 	endif
 endif
+
 
 COMPILE_OS = $(shell uname -o)
 LINUX_OS = GNU/Linux
@@ -141,9 +145,10 @@ RM := rm -rf
 -include ./project.mk
 
 # Add inputs and outputs from these tool invocations to the build variables 
-LST_FILE := $(OUT_PATH)/$(PROJECT_NAME).lst
-BIN_FILE := $(OUT_PATH)/$(PROJECT_NAME).bin
-ELF_FILE := $(OUT_PATH)/$(PROJECT_NAME).elf
+PROJECT_FILE_NAME := $(PROJECT_NAME)$(PROJECT_MODEL)
+LST_FILE := $(OUT_PATH)/$(PROJECT_FILE_NAME).lst
+BIN_FILE := $(OUT_PATH)/$(PROJECT_FILE_NAME).bin
+ELF_FILE := $(OUT_PATH)/$(PROJECT_FILE_NAME).elf
 FW_FILE  := $(OUT_PATH)/firmware.bin
 BOOTLOADER := $(BIN_PATH)/bootloader/bootloader.bin
 
@@ -205,11 +210,12 @@ $(BIN_FILE): $(ELF_FILE)
 	@echo 'Create Flash image (binary format)'
 	@$(OBJCOPY) -v -O binary $(ELF_FILE)  $(BIN_FILE)
 	@python3 $(TL_CHECK) $(BIN_FILE)
-	@cp $(BIN_FILE) $(BIN_PATH)/$(PROJECT_NAME)_$(VERSION_RELEASE).$(VERSION_BUILD).bin
+	@cp $(BIN_FILE) $(BIN_PATH)/$(PROJECT_FILE_NAME)_$(VERSION_RELEASE).$(VERSION_BUILD).bin
+	@cp $(BIN_FILE) $(BIN_PATH)/$(PROJECT_FILE_NAME)_last_version.bin
 	@echo 'Create zigbee OTA file'
-	@python3 $(MAKE_OTA) -t $(PROJECT_NAME) -s "Slacky-DIY OTA" $(BIN_PATH)/$(PROJECT_NAME)_$(VERSION_RELEASE).$(VERSION_BUILD).bin 
+	@python3 $(MAKE_OTA) -t $(PROJECT_NAME) -s "Slacky-DIY OTA" $(BIN_PATH)/$(PROJECT_FILE_NAME)_$(VERSION_RELEASE).$(VERSION_BUILD).bin 
 	@echo 'Create zigbee Tuya OTA file'
-	@python3 $(MAKE_OTA) -t $(PROJECT_NAME) -m $(MANUF_CODE) -i $(IMAGE_TYPE) -v0x1111114b -s "Slacky-DIY OTA" $(BIN_PATH)/$(PROJECT_NAME)_$(VERSION_RELEASE).$(VERSION_BUILD).bin
+	@python3 $(MAKE_OTA) -t $(PROJECT_FILE_NAME) -m $(MANUF_CODE) -i $(IMAGE_TYPE) -v0x1111114b -s "Slacky-DIY OTA" $(BIN_PATH)/$(PROJECT_FILE_NAME)_$(VERSION_RELEASE).$(VERSION_BUILD).bin
 	@echo ' '
 	@echo 'Finished building: $@'
 	@echo ' '
@@ -223,7 +229,7 @@ sizedummy: $(ELF_FILE)
 # Other Targets
 clean:
 	@echo $(INCLUDE_PATHS)
-	-$(RM) $(FLASH_IMAGE) $(ELFS) $(OBJS) $(SIZEDUMMY) $(LST_FILE) $(ELF_FILE)
+	-$(RM) $(FLASH_IMAGE) $(ELFS) $(OBJS) $(SIZEDUMMY) $(LST_FILE) $(ELF_FILE) $(BIN_PATH)/*.bin $(BIN_PATH)/*.zigbee
 	-@echo ' '
 
 clean-bin:
@@ -233,7 +239,9 @@ clean-bin:
 clean-project:
 	-$(RM) $(FLASH_IMAGE) $(ELFS) $(SIZEDUMMY) $(LST_FILE) $(ELF_FILE)
 	-$(RM) -R $(OUT_PATH)/$(SRC_PATH)/*.o
+	-$(RM) -R $(OUT_PATH)/$(SRC_PATH)/common/*.o
 	-$(RM) -R $(OUT_PATH)/$(SRC_PATH)/zcl/*.o
+	-$(RM) -R $(OUT_PATH)/$(SRC_PATH)/drv_sdk/*.o
 	-@echo ' '
 	
 pre-build:

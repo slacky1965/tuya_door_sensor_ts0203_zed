@@ -39,7 +39,7 @@ void door_handler() {
         return;
     }
 
-    if (drv_gpio_read(DOOR_GPIO)) {
+    if (drv_gpio_read(device->door_gpio.gpio)) {
         close_count = 0;
         if (!g_appCtx.open) {
             if (!open_count) {

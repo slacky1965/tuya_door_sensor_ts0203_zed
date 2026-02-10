@@ -1,5 +1,7 @@
 #include "app_main.h"
 
+static bool first_start = true;
+
 static void cmdOnOffSend(uint8_t ep, epInfo_t *dstEpInfo, uint8_t command) {
 
     /* command 0x00 - off, 0x01 - on, 0x02 - toggle */
@@ -29,6 +31,17 @@ static void cmdOnOffSend(uint8_t ep, epInfo_t *dstEpInfo, uint8_t command) {
 }
 
 void cmdOnOff(uint8_t command) {
+
+    if (first_start) {
+        first_start = false;
+        return;
+    }
+
+    zcl_onOffSwitchCfgAttr_t *attrOnOffCfg = zcl_onOffSwitchCfgAttrGet();
+
+    if (command == ZCL_CMD_ONOFF_OFF && attrOnOffCfg->off_cmd_off) return;
+    if (command == ZCL_CMD_ONOFF_ON && attrOnOffCfg->on_cmd_off) return;
+
     epInfo_t dstEpInfo;
     TL_SETSTRUCTCONTENT(dstEpInfo, 0);
     dstEpInfo.profileId = HA_PROFILE_ID;
@@ -50,5 +63,6 @@ void cmdOnOff(uint8_t command) {
     dstEpInfo.profileId = HA_PROFILE_ID;
     dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
     cmdOnOffSend(APP_ENDPOINT1, &dstEpInfo, command);
+    printf("OnOffCmf send. Command: 0x%02x\r\n", command);
 }
 
