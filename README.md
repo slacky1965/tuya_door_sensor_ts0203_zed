@@ -2,8 +2,17 @@
 
 <img src="doc/images/ae.jpg"/>
 
-- TS0203 Zbeacon
-- TS0203 _TZ3000_hufxidjp 
+<!--
+| Custom Model | Zigbee Model | Z2M Model | Zigbee Manufacturer| Manufacturer | Update method | Photo |
+|--------------|--------------|-----------|--------------------|--------------|---------------|-------|
+| model_1      | TS0203       | TS0203    | Zbeacon            | Tuya         | OTA file      | Photo |
+| model_2      | TS0203       | TS0203    | _TZ3000_hufxidjp   | Tuya         | OTA file      | Photo |
+-->
+
+| Custom Model | Zigbee Model | Z2M Model | Zigbee Manufacturer| Manufacturer | Update method | Photo |
+|--------------|--------------|-----------|--------------------|--------------|---------------|-------|
+| model_1      | TS0203       | [TS0203](https://www.zigbee2mqtt.io/devices/TS0203.html)    | Zbeacon            | [Tuya](https://www.zigbee2mqtt.io/supported-devices/#v=Tuya)         | [OTA file](bin/1286-0202-1111114b-tuya_door_sensor_ts0203_zed_model1.zigbee)      | [Photo](doc/images/device_Zbeacon.jpg) |
+| model_2      | TS0203       | [TS0203](https://www.zigbee2mqtt.io/devices/TS0203.html)    | _TZ3000_hufxidjp   | [Tuya](https://www.zigbee2mqtt.io/supported-devices/#v=Tuya)         | [OTA file](bin/1141-d3a3-1111114b-tuya_door_sensor_ts0203_zed_model2.zigbee)      | [Photo](doc/images/device_TZ3000_hufxidjp.jpg) |
 
 **Автор не несет никакой ответственности, если вы, воспользовавшись этим проектом, превратите свой умный датчик в полоумный.**
 
@@ -30,7 +39,7 @@
 > [!WARNING]
 > Внимание!!! На момент выхода прошивки конвертор не был добавлен в репозиторий `zigbee-herdsman-converters`, поэтому в этой версии `zigbee2mqtt` [внешний конвертор](zigbee2mqtt/ts0203-z-sld.js) нужно положить в директорию `external_converters` и перегрузить `zigbee2mqtt`. В последующих версиях внешний конвертор будет не нужен.
 
-Итак, скачиваем из репозитория нужный файл обновления (какой именно чуть ниже). Заходим в устройство. И справа видим в `Firmware version` значок облака. Нам сюда.
+Итак, скачиваем из репозитория нужный файл обновления (какой именно смотрите в таблице вверху). Заходим в устройство. И справа видим в `Firmware version` значок облака. Нам сюда.
 
 <img src="doc/images/z2m-ota_device.jpg"/>
 
@@ -41,27 +50,6 @@
 После этого выбираем файл.
 
 <img src="doc/images/z2m-ota_file_selection.jpg"/>
-
----
-
-Для `TS0203 Zbeacon`
-
-<img src="doc/images/device_Zbeacon.jpg"/>
-
-выбираем файл [1286-0202-1111114b-tuya_door_sensor_0x20_zed.zigbee](bin/1286-0202-1111114b-tuya_door_sensor_0x20_zed.zigbee).
-
-> [!WARNING]
-> Внимание!!! Это датчик обновляется очень долго. У меня на это ушло более 4 часов.
-
----
-
-Для `TS0203 _TZ3000_hufxidjp`
-
-<img src="doc/images/device_TZ3000_hufxidjp.jpg"/>
-
-выбираем файл [1141-d3a3-1111114b-tuya_door_sensor_0x26_zed.zigbee](bin/1141-d3a3-1111114b-tuya_door_sensor_0x26_zed.zigbee).
-
----
 
 Далее нажимаем кнопку на самом датчике, т.е. будим его и жмем обновить.
 
