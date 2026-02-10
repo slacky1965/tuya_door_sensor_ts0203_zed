@@ -1,8 +1,7 @@
-#include "tl_common.h"
-#include "zcl_include.h"
-#include "ota.h"
-
 #include "app_main.h"
+#include "factory_reset.h"
+
+static bool boot_announce_sent = false;
 
 app_ctx_t g_appCtx = {
         .bdbFBTimerEvt = NULL,
@@ -156,9 +155,19 @@ void user_app_init(void)
 
 
 void app_task(void) {
+//    printf("Test\r\n");
 
-    button_handler();
-    door_handler();
+    if (!boot_announce_sent && zb_isDeviceJoinedNwk()) {
+        zb_zdoSendDevAnnance();
+        boot_announce_sent = true;
+    }
+
+    factoryRst_handler();
+
+    if (device->device_en) {
+        button_handler();
+        door_handler();
+    }
 
     if(bdb_isIdle()) {
         report_handler();
@@ -202,6 +211,8 @@ void user_init(bool isRetention)
 //    printf("[%d] isRetention: %s\r\n", count_restart++, isRetention?"true":"false");
 #endif /* UART_PRINTF_MODE */
 
+    device_init();
+
     /* Initialize LEDs*/
     light_init();
 
@@ -218,6 +229,8 @@ void user_init(bool isRetention)
 #endif
 
     if(!isRetention) {
+
+        factoryRst_init();
 
         start_message();
 

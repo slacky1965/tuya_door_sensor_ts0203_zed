@@ -29,18 +29,18 @@ int32_t delayedMcuResetCb(void *arg) {
     return -1;
 }
 
-int32_t delayedFactoryResetCb(void *arg) {
-
-    zb_resetDevice2FN();
-    zb_deviceFactoryNewSet(true);
-
-    g_appCtx.timerFactoryReset = NULL;
-
-//    printf("Cb Factory new: %s\r\n", zb_isDeviceFactoryNew()?"yes":"no");
-
-
-    return -1;
-}
+//int32_t delayedFactoryResetCb(void *arg) {
+//
+//    zb_resetDevice2FN();
+//    zb_deviceFactoryNewSet(true);
+//
+//    g_appCtx.timerFactoryReset = NULL;
+//
+////    printf("Cb Factory new: %s\r\n", zb_isDeviceFactoryNew()?"yes":"no");
+//
+//
+//    return -1;
+//}
 
 int32_t delayedFullResetCb(void *arg) {
 
@@ -66,6 +66,15 @@ void app_setPollRate(uint32_t sec) {
     }
     g_appCtx.timerSetPollRateEvt = TL_ZB_TIMER_SCHEDULE(set_pollRateCb, NULL, sec /*TIMEOUT_20SEC*/);
 
+}
+
+int32_t net_steer_start_offCb(void *args) {
+
+    g_appCtx.net_steer_start = false;
+
+    light_blink_stop();
+
+    return -1;
 }
 
 

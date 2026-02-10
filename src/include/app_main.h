@@ -18,6 +18,7 @@
 #include "app_reporting.h"
 #include "app_endpoint_cfg.h"
 #include "app_utility.h"
+#include "app_device.h"
 
 typedef struct {
     uint8_t keyType; /* CERTIFICATION_KEY or MASTER_KEY key for touch-link or distribute network
@@ -39,9 +40,9 @@ typedef struct {
 //    uint32_t current_poll;
 
 //    button_t button;
-    button_t button[MAX_BUTTON_NUM];
+//    button_t button[MAX_BUTTON_NUM];
 //    u32 keyPressedTime;
-    u8  keyPressed;
+//    u8  keyPressed;
 
     uint16_t ledOnTime;
     uint16_t ledOffTime;

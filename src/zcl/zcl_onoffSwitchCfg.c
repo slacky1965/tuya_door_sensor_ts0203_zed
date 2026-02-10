@@ -52,6 +52,16 @@ nv_sts_t zcl_onOffCfgAttr_save(void) {
             save = true;
         }
 
+        if(zcl_nv_onOffCfg.on_cmd_off != g_zcl_onOffSwitchCfgAttrs.on_cmd_off) {
+            zcl_nv_onOffCfg.on_cmd_off = g_zcl_onOffSwitchCfgAttrs.on_cmd_off;
+            save = true;
+        }
+
+        if(zcl_nv_onOffCfg.off_cmd_off != g_zcl_onOffSwitchCfgAttrs.off_cmd_off) {
+            zcl_nv_onOffCfg.off_cmd_off = g_zcl_onOffSwitchCfgAttrs.off_cmd_off;
+            save = true;
+        }
+
         if (save) {
             st = nv_flashWriteNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_ON_OFF, sizeof(zcl_onOffSwitchCfgAttr_t), (u8*)&zcl_nv_onOffCfg);
         }
@@ -60,6 +70,8 @@ nv_sts_t zcl_onOffCfgAttr_save(void) {
         zcl_nv_onOffCfg.switchActions = g_zcl_onOffSwitchCfgAttrs.switchActions;
         zcl_nv_onOffCfg.delay_on = g_zcl_onOffSwitchCfgAttrs.delay_on;
         zcl_nv_onOffCfg.delay_off = g_zcl_onOffSwitchCfgAttrs.delay_off;
+        zcl_nv_onOffCfg.on_cmd_off = g_zcl_onOffSwitchCfgAttrs.on_cmd_off;
+        zcl_nv_onOffCfg.off_cmd_off = g_zcl_onOffSwitchCfgAttrs.off_cmd_off;
 
         st = nv_flashWriteNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_ON_OFF, sizeof(zcl_onOffSwitchCfgAttr_t), (u8*)&zcl_nv_onOffCfg);
     }
@@ -86,11 +98,18 @@ nv_sts_t zcl_onOffCfgAttr_restore(void) {
         g_zcl_onOffSwitchCfgAttrs.switchActions = zcl_nv_onOffCfg.switchActions;
         g_zcl_onOffSwitchCfgAttrs.delay_on = zcl_nv_onOffCfg.delay_on;
         g_zcl_onOffSwitchCfgAttrs.delay_off = zcl_nv_onOffCfg.delay_off;
+        g_zcl_onOffSwitchCfgAttrs.on_cmd_off = zcl_nv_onOffCfg.on_cmd_off;
+        g_zcl_onOffSwitchCfgAttrs.off_cmd_off = zcl_nv_onOffCfg.off_cmd_off;
     } else {
         g_zcl_onOffSwitchCfgAttrs.switchActions = ZCL_SWITCH_ACTION_OFF_ON;
         g_zcl_onOffSwitchCfgAttrs.delay_on = DELAY_ON_MIN;
         g_zcl_onOffSwitchCfgAttrs.delay_off = DELAY_OFF_MIN;
+        g_zcl_onOffSwitchCfgAttrs.on_cmd_off = DEFAULT_ON_CMD_OFF;
+        g_zcl_onOffSwitchCfgAttrs.off_cmd_off = DEFAULT_OFF_CMD_OFF;
     }
+
+    g_zcl_onOffSwitchCfgAttrs.model = device_door_model;
+
 #else
     st = NV_ENABLE_PROTECT_ERROR;
 #endif

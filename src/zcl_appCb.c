@@ -189,6 +189,18 @@ static void app_zclWriteReqCmd(uint8_t endPoint, uint16_t clusterId, zclWriteCmd
 //                printf("Delay off: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
                 if (attr[i].attrData[0] > DELAY_OFF_MAX) onoffCfgAttrs->delay_off = DELAY_OFF_MAX;
                 zcl_onOffCfgAttr_save();
+            } else if (attr[i].attrID == ZCL_ATTRID_ON_CMD_OFF) {
+                printf("On command is off: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
+                zcl_onOffCfgAttr_save();
+            } else if (attr[i].attrID == ZCL_ATTRID_OFF_CMD_OFF) {
+                printf("Off command is off: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
+                zcl_onOffCfgAttr_save();
+            } else if (attr[i].attrID == ZCL_ATTRID_DOOR_SENSOR_MODEL) {
+                uint8_t model = attr[i].attrData[0];
+                printf("model: 0x%02x, ep: %d\r\n", model, endPoint);
+                if (model >= DEVICE_DOOR_NONE && model < DEVICE_DOOR_MAX) {
+                    device_model_save(model);
+                }
             }
         }
     }
