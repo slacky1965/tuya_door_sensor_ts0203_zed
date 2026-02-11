@@ -109,6 +109,7 @@ zcl_basicAttr_t g_zcl_basicAttrs =
     .powerSource    = POWER_SOURCE_BATTERY,
     .swBuildId      = ZCL_BASIC_SW_BUILD_ID,
     .deviceEnable   = TRUE,
+    .productLabel   = {0},
 };
 
 const zclAttrInfo_t basic_attrTbl[] =
@@ -123,6 +124,7 @@ const zclAttrInfo_t basic_attrTbl[] =
     { ZCL_ATTRID_BASIC_POWER_SOURCE,        ZCL_ENUM8,    R,  (uint8_t*)&g_zcl_basicAttrs.powerSource},
     { ZCL_ATTRID_BASIC_DEV_ENABLED,         ZCL_BOOLEAN,  RW, (uint8_t*)&g_zcl_basicAttrs.deviceEnable},
     { ZCL_ATTRID_BASIC_SW_BUILD_ID,         ZCL_CHAR_STR, R,  (uint8_t*)&g_zcl_basicAttrs.swBuildId},
+    { ZCL_ATTRID_BASIC_PRODUCT_LABEL,       ZCL_CHAR_STR, R,  (uint8_t*)&g_zcl_basicAttrs.productLabel},
 
     { ZCL_ATTRID_GLOBAL_CLUSTER_REVISION,   ZCL_UINT16,   R,  (uint8_t*)&zcl_attr_global_clusterRevision},
 

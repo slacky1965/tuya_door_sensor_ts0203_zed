@@ -10,6 +10,8 @@ typedef struct {
 } config_door_model_t;
 
 static bool first_start = true;
+static uint8_t zb_modelId[10] = {8,'M','o','d','e','l',' ','0','0',0};
+
 
 door_device_t door_device[DEVICE_DOOR_MAX];
 device_door_model_t device_door_model = DEVICE_MODEL;
@@ -57,6 +59,26 @@ static void device_model_init() {
         light_init();
     }
     kb_drv_init();
+
+    switch(device_door_model) {
+        case DEVICE_DOOR_NONE:
+            zb_modelId[7] = '0';
+            zb_modelId[8] = '0';
+            break;
+        case DEVICE_DOOR_1:
+            zb_modelId[7] = '0';
+            zb_modelId[8] = '1';
+            break;
+        case DEVICE_DOOR_2:
+            zb_modelId[7] = '0';
+            zb_modelId[8] = '2';
+            break;
+        default:
+            zb_modelId[7] = '0';
+            zb_modelId[8] = '0';
+            break;
+    }
+    memcpy(g_zcl_basicAttrs.productLabel, zb_modelId, 9);
 }
 
 void device_model_restore() {
