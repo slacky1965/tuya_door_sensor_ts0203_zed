@@ -152,7 +152,7 @@
 			</target>
 			<target name="firmware model 1" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
-				<buildArguments>PROJECT_MODEL=_model1</buildArguments>
+				<buildArguments>PROJECT_MODEL=_model_1</buildArguments>
 				<buildTarget>all</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
@@ -160,7 +160,7 @@
 			</target>
 			<target name="firmware model 1 flash" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
-				<buildArguments>PROJECT_MODEL=_model1</buildArguments>
+				<buildArguments>PROJECT_MODEL=_model_1</buildArguments>
 				<buildTarget>flash0</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
@@ -168,7 +168,7 @@
 			</target>
 			<target name="firmware model 2" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
-				<buildArguments>PROJECT_MODEL=_model2</buildArguments>
+				<buildArguments>PROJECT_MODEL=_model_2</buildArguments>
 				<buildTarget>all</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
@@ -176,7 +176,7 @@
 			</target>
 			<target name="firmware model 2 flash" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
-				<buildArguments>PROJECT_MODEL=_model2</buildArguments>
+				<buildArguments>PROJECT_MODEL=_model_2</buildArguments>
 				<buildTarget>flash0</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
@@ -184,7 +184,7 @@
 			</target>
 			<target name="firmware model 3" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
-				<buildArguments>PROJECT_MODEL=_model3</buildArguments>
+				<buildArguments>PROJECT_MODEL=_model_3</buildArguments>
 				<buildTarget>all</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
@@ -192,7 +192,7 @@
 			</target>
 			<target name="firmware model 3 flash" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
-				<buildArguments>PROJECT_MODEL=_model3</buildArguments>
+				<buildArguments>PROJECT_MODEL=_model_3</buildArguments>
 				<buildTarget>flash0</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
