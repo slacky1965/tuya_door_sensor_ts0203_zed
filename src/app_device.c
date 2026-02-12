@@ -135,7 +135,6 @@ void device_init() {
 
         /* TS0203 Zbeacon Tuya  - model_1 */
         door_device[devi].device_en = ON;
-        door_device[devi].button_max = 1;
         door_device[devi].button_gpio.gpio = GPIO_PB5;
         door_device[devi].button_gpio.input = ON;
         door_device[devi].button_gpio.output = OFF;
@@ -151,7 +150,6 @@ void device_init() {
         door_device[devi].door_gpio.input = ON;
         door_device[devi].door_gpio.output = OFF;
         door_device[devi].door_gpio.func = AS_GPIO;
-        door_device[devi].door_debounce = 64;
         door_device[devi].debug_gpio.gpio = GPIO_PB1;
         door_device[devi].debug_gpio.input = OFF;
         door_device[devi].debug_gpio.output = ON;
@@ -160,7 +158,6 @@ void device_init() {
 
         /* TS0203 _TZ3000_hufxidjp Tuya - model_2 */
         door_device[devi].device_en = ON;
-        door_device[devi].button_max = 1;
         door_device[devi].button_gpio.gpio = GPIO_PC3;
         door_device[devi].button_gpio.input = ON;
         door_device[devi].button_gpio.output = OFF;
@@ -176,12 +173,34 @@ void device_init() {
         door_device[devi].door_gpio.input = ON;
         door_device[devi].door_gpio.output = OFF;
         door_device[devi].door_gpio.func = AS_GPIO;
-        door_device[devi].door_debounce = 16;
         door_device[devi].debug_gpio.gpio = UART_TX_PB1;
         door_device[devi].debug_gpio.input = OFF;
         door_device[devi].debug_gpio.output = ON;
         door_device[devi].debug_gpio.func = AS_GPIO;
-        door_device[devi].debug_gpio.pull = PM_PIN_PULLUP_1M;
+        door_device[devi++].debug_gpio.pull = PM_PIN_PULLUP_1M;
+
+        /* TS0203 _TZ3000_6zvw8ham - model_3 */
+        door_device[devi].device_en = ON;
+        door_device[devi].button_gpio.gpio = GPIO_PD3;
+        door_device[devi].button_gpio.input = ON;
+        door_device[devi].button_gpio.output = OFF;
+        door_device[devi].button_gpio.func = AS_GPIO;
+        door_device[devi].button_gpio.pull = PM_PIN_PULLUP_1M;
+        door_device[devi].led_gpio.gpio = GPIO_PB4;
+        door_device[devi].led_gpio.input = OFF;
+        door_device[devi].led_gpio.output = ON;
+        door_device[devi].led_gpio.func = AS_GPIO;
+        door_device[devi].len_on = 1;
+        door_device[devi].len_off = 0;
+        door_device[devi].door_gpio.gpio = GPIO_PD7;
+        door_device[devi].door_gpio.input = ON;
+        door_device[devi].door_gpio.output = OFF;
+        door_device[devi].door_gpio.func = AS_GPIO;
+        door_device[devi].debug_gpio.gpio = UART_TX_PB1;
+        door_device[devi].debug_gpio.input = OFF;
+        door_device[devi].debug_gpio.output = ON;
+        door_device[devi].debug_gpio.func = AS_GPIO;
+        door_device[devi++].debug_gpio.pull = PM_PIN_PULLUP_1M;
 
         device_model_restore();
     } else {

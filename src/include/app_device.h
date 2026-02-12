@@ -13,6 +13,7 @@ typedef enum {
     DEVICE_DOOR_NONE  = 0,
     DEVICE_DOOR_1,                        /* TS0203 Zbeacon Tuya          */
     DEVICE_DOOR_2,                        /* TS0203 _TZ3000_hufxidjp Tuya */
+    DEVICE_DOOR_3,                        /* TS0203 _TZ3000_6zvw8ham Tuya */
     DEVICE_DOOR_MAX
 } device_door_model_t;
 
@@ -29,7 +30,6 @@ typedef struct __attribute__((packed)) {
     uint8_t             len_on :1;
     uint8_t             len_off :1;
     uint8_t             reserve :5;
-    uint8_t             button_max;
     device_gpio_t       button_gpio;
     device_gpio_t       led_gpio;
     device_gpio_t       door_gpio;

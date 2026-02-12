@@ -251,9 +251,9 @@ const zclAttrInfo_t onoff_switch_cfg_attrTbl[] =
     { ZCL_ATTRID_SWITCH_ACTION,             ZCL_ENUM8,   RWR, (u8*)&g_zcl_onOffSwitchCfgAttrs.switchActions },
     { ZCL_ATTRID_SWITCH_DELAY_ON,           ZCL_UINT8,   RWR, (u8*)&g_zcl_onOffSwitchCfgAttrs.delay_on      },
     { ZCL_ATTRID_SWITCH_DELAY_OFF,          ZCL_UINT8,   RWR, (u8*)&g_zcl_onOffSwitchCfgAttrs.delay_off     },
+    { ZCL_ATTRID_DOOR_SENSOR_MODEL,         ZCL_ENUM8,   RWR, (u8*)&g_zcl_onOffSwitchCfgAttrs.model         },
     { ZCL_ATTRID_ON_CMD_OFF,                ZCL_BOOLEAN, RWR, (u8*)&g_zcl_onOffSwitchCfgAttrs.on_cmd_off    },
     { ZCL_ATTRID_OFF_CMD_OFF,               ZCL_BOOLEAN, RWR, (u8*)&g_zcl_onOffSwitchCfgAttrs.off_cmd_off   },
-    { ZCL_ATTRID_DOOR_SENSOR_MODEL,         ZCL_ENUM8,   RWR, (u8*)&g_zcl_onOffSwitchCfgAttrs.model         },
 
     { ZCL_ATTRID_GLOBAL_CLUSTER_REVISION,   ZCL_UINT16,  R,   (u8*)&zcl_attr_global_clusterRevision         },
 };
