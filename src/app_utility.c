@@ -19,6 +19,7 @@ void start_message() {
 #if UART_PRINTF_MODE
     const uint8_t version[] = ZCL_BASIC_SW_BUILD_ID;
     printf("Firmware version: %s\r\n", version+1);
+    printf("Device model is 'model_%d'\r\n", device_door_model);
 #endif
 }
 
