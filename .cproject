@@ -143,38 +143,6 @@
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>true</runAllBuilders>
 			</target>
-			<target name="firmware 0x20" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildArguments>PROJECT_NAME="tuya_door_sensor_0x20_zed" PROJECT_DEF="-DBOARD=BOARD_TS0203_ZBEACON"</buildArguments>
-				<buildTarget>all</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>false</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-			<target name="firmware 0x20 flash" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildArguments>PROJECT_NAME="tuya_door_sensor_0x20_zed" PROJECT_DEF="-DBOARD=BOARD_TS0203_ZBEACON"</buildArguments>
-				<buildTarget>flash0</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>false</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-			<target name="firmware 0x26" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildArguments>PROJECT_NAME="tuya_door_sensor_0x26_zed" PROJECT_DEF="-DBOARD=BOARD_TS0203_TZ3000_hufxidjp"</buildArguments>
-				<buildTarget>all</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>false</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-			<target name="firmware 0x26 flash" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildArguments>PROJECT_NAME="tuya_door_sensor_0x26_zed" PROJECT_DEF="-DBOARD=BOARD_TS0203_TZ3000_hufxidjp"</buildArguments>
-				<buildTarget>flash0</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>false</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
 			<target name="clean-bin" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildTarget>clean-bin</buildTarget>
@@ -209,6 +177,22 @@
 			<target name="firmware model 2 flash" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments>PROJECT_MODEL=_model2</buildArguments>
+				<buildTarget>flash0</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>false</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="firmware model 3" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments>PROJECT_MODEL=_model3</buildArguments>
+				<buildTarget>all</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>false</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="firmware model 3 flash" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments>PROJECT_MODEL=_model3</buildArguments>
 				<buildTarget>flash0</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
