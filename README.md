@@ -13,7 +13,7 @@
 |:------------:|:------------:|:---------:|:-------------------:|:------------:|:-------------:|:--------:|
 | model_1      | TS0203       | [TS0203](https://www.zigbee2mqtt.io/devices/TS0203.html)    | Zbeacon             | [Tuya](https://www.zigbee2mqtt.io/supported-devices/#v=Tuya)         | [OTA file](bin/1286-0202-1111114b-tuya_door_sensor_ts0203_zed_model_1.zigbee)      | [:camera:](doc/images/device_Zbeacon.jpg) |
 | model_2      | TS0203       | [TS0203](https://www.zigbee2mqtt.io/devices/TS0203.html)    | _TZ3000_hufxidjp    | [Tuya](https://www.zigbee2mqtt.io/supported-devices/#v=Tuya)         | [OTA file](bin/1141-d3a3-1111114b-tuya_door_sensor_ts0203_zed_model_2.zigbee)      | [:camera:](doc/images/device_TZ3000_hufxidjp.jpg) |
-| model_3      | TS0203       | [TS0203](https://www.zigbee2mqtt.io/devices/TS0203.html)    | _TZ3000_6zvw8ham _TZ3000_wkfknbzv    | [Tuya](https://www.zigbee2mqtt.io/supported-devices/#v=Tuya)         | [OTA file](bin/1141-d3a3-1111114b-tuya_door_sensor_ts0203_zed_model_3.zigbee)      | [:camera:](doc/images/device_TZ3000_6zvw8ham.jpg) [:camera:](doc/images/device_TZ3000_wkfknbzv.jpg) |
+| model_3      | TS0203       | [TS0203](https://www.zigbee2mqtt.io/devices/TS0203.html)    | _TZ3000_6zvw8ham _TZ3000_wkfknbzv _TZ3000_n2egfsli    | [Tuya](https://www.zigbee2mqtt.io/supported-devices/#v=Tuya)         | [OTA file](bin/1141-d3a3-1111114b-tuya_door_sensor_ts0203_zed_model_3.zigbee)      | [:camera:](doc/images/device_TZ3000_6zvw8ham.jpg) [:camera:](doc/images/device_TZ3000_wkfknbzv.jpg) |
 
 ---
 
