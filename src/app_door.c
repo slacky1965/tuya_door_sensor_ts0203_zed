@@ -1,6 +1,5 @@
 #include "app_main.h"
 
-#define DOOR_DEBOUNCE_US	(100 * 1000)	// 100 ms
 #define DOOR_CLOSE			0x00
 #define DOOR_OPEN			0x01
 
@@ -46,7 +45,7 @@ void door_handler() {
                 open_count++;
                 time_open = clock_time();
             } else if (open_count == 1) {
-                if (clock_time_exceed(time_open, DOOR_DEBOUNCE_US)) {
+                if (clock_time_exceed(time_open, device->door_debounce * 1000)) {
                     open_count++;
                 }
             }
@@ -91,7 +90,7 @@ void door_handler() {
                 close_count++;
                 time_close = clock_time();
             } else if (close_count == 1) {
-                if (clock_time_exceed(time_close, DOOR_DEBOUNCE_US)) {
+                if (clock_time_exceed(time_close, device->door_debounce * 1000)) {
                     close_count++;
                 }
             }

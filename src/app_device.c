@@ -73,6 +73,10 @@ static void device_model_init() {
             zb_modelId[7] = '0';
             zb_modelId[8] = '2';
             break;
+        case DEVICE_DOOR_3:
+            zb_modelId[7] = '0';
+            zb_modelId[8] = '3';
+            break;
         default:
             zb_modelId[7] = '0';
             zb_modelId[8] = '0';
@@ -150,6 +154,7 @@ void device_init() {
         door_device[devi].door_gpio.input = ON;
         door_device[devi].door_gpio.output = OFF;
         door_device[devi].door_gpio.func = AS_GPIO;
+        door_device[devi].door_debounce = DOOR_DEBOUNCE_MS;
         door_device[devi].debug_gpio.gpio = GPIO_PB1;
         door_device[devi].debug_gpio.input = OFF;
         door_device[devi].debug_gpio.output = ON;
@@ -173,6 +178,7 @@ void device_init() {
         door_device[devi].door_gpio.input = ON;
         door_device[devi].door_gpio.output = OFF;
         door_device[devi].door_gpio.func = AS_GPIO;
+        door_device[devi].door_debounce = DOOR_DEBOUNCE_MS;
         door_device[devi].debug_gpio.gpio = UART_TX_PB1;
         door_device[devi].debug_gpio.input = OFF;
         door_device[devi].debug_gpio.output = ON;
@@ -196,6 +202,8 @@ void device_init() {
         door_device[devi].door_gpio.input = ON;
         door_device[devi].door_gpio.output = OFF;
         door_device[devi].door_gpio.func = AS_GPIO;
+        door_device[devi].door_debounce = DOOR_DEBOUNCE_MS;
+//        door_device[devi].door_debounce = 200;
         door_device[devi].debug_gpio.gpio = UART_TX_PB1;
         door_device[devi].debug_gpio.input = OFF;
         door_device[devi].debug_gpio.output = ON;
