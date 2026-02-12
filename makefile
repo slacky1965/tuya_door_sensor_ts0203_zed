@@ -1,21 +1,21 @@
 # Set Project Name
 PROJECT_NAME = tuya_door_sensor_ts0203_zed
-PROJECT_MODEL ?= _model0
+PROJECT_MODEL ?= _model_0
 
 # Set the serial port number for downloading the firmware
 DOWNLOAD_PORT := COM3
 
-ifeq ($(PROJECT_MODEL),_model1)
+ifeq ($(PROJECT_MODEL),_model_1)
 	MANUF_CODE = 4742
 	IMAGE_TYPE = 514
 	PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_DOOR_1"
 else
-	ifeq ($(PROJECT_MODEL),_model2)
+	ifeq ($(PROJECT_MODEL),_model_2)
 		MANUF_CODE = 4417
 		IMAGE_TYPE = 54179
 		PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_DOOR_2"
 	else
-		ifeq ($(PROJECT_MODEL),_model3)
+		ifeq ($(PROJECT_MODEL),_model_3)
 			MANUF_CODE = 4417
 			IMAGE_TYPE = 54179
 			PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_DOOR_3"
