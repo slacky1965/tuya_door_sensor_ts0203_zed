@@ -13,6 +13,7 @@
 |--------------|--------------|-----------|--------------------|--------------|---------------|-------|
 | model_1      | TS0203       | [TS0203](https://www.zigbee2mqtt.io/devices/TS0203.html)    | Zbeacon            | [Tuya](https://www.zigbee2mqtt.io/supported-devices/#v=Tuya)         | [OTA file](bin/1286-0202-1111114b-tuya_door_sensor_ts0203_zed_model1.zigbee)      | [Photo](doc/images/device_Zbeacon.jpg) |
 | model_2      | TS0203       | [TS0203](https://www.zigbee2mqtt.io/devices/TS0203.html)    | _TZ3000_hufxidjp   | [Tuya](https://www.zigbee2mqtt.io/supported-devices/#v=Tuya)         | [OTA file](bin/1141-d3a3-1111114b-tuya_door_sensor_ts0203_zed_model2.zigbee)      | [Photo](doc/images/device_TZ3000_hufxidjp.jpg) |
+| model_3      | TS0203       | TS0203    | _TZ3000_6zvw8ham   | Tuya         | OTA file      | Photo |
 
 **Автор не несет никакой ответственности, если вы, воспользовавшись этим проектом, превратите свой умный датчик в полоумный.**
 
