@@ -46,6 +46,6 @@ int32_t delayedFactoryResetCb(void *arg);
 int32_t delayedFullResetCb(void *arg);
 int32_t set_pollRateCb(void *args);
 void app_setPollRate(uint32_t sec);
-
+int32_t net_steer_start_offCb(void *args);
 
 #endif /* SRC_INCLUDE_APP_UTILITY_H_ */

@@ -23,12 +23,14 @@
  *
  *******************************************************************************************************/
 
-#include "tl_common.h"
-#include "factory_reset.h"
-#include "zb_api.h"
+//#include "tl_common.h"
+//#include "zb_api.h"
 
-#define FACTORY_RESET_POWER_CNT_THRESHOLD		10	//times
-#define FACTORY_RESET_TIMEOUT					2	//second
+#include "app_main.h"
+#include "factory_reset.h"
+
+#define FACTORY_RESET_POWER_CNT_THRESHOLD		3	//times
+#define FACTORY_RESET_TIMEOUT					4	//second
 
 ev_timer_event_t *factoryRst_timerEvt = NULL;
 u8 factoryRst_powerCnt = 0;
@@ -67,14 +69,18 @@ static s32 factoryRst_timerCb(void *arg){
 	return -1;
 }
 
-void factroyRst_handler(void){
+void factoryRst_handler(void){
 	if(factoryRst_exist){
 		factoryRst_exist = FALSE;
 		zb_factoryReset();
+	    g_appCtx.net_steer_start = true;
+	    TL_ZB_TIMER_SCHEDULE(net_steer_start_offCb, NULL, TIMEOUT_1MIN30SEC);
+	    light_blink_start(90, 250, 750);
 	}
 }
 
-void factroyRst_init(void){
+void factoryRst_init(void) {
+//    printf("factoryRst_init(). factoryRst_powerCnt: %d\r\n", factoryRst_powerCnt);
 	factoryRst_powerCntRestore();
 	factoryRst_powerCnt++;
 	factoryRst_powerCntSave();

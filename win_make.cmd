@@ -1,7 +1,5 @@
 make clean
-make clean-bin
-make PROJECT_NAME="tuya_door_sensor_0x20_zed" PROJECT_DEF="-DBOARD=BOARD_TS0203_ZBEACON"
-
-make clean
-make PROJECT_NAME="tuya_door_sensor_0x26_zed" PROJECT_DEF="-DBOARD=BOARD_TS0203_TZ3000_hufxidjp"
-
+make PROJECT_MODEL=_model_1
+make PROJECT_MODEL=_model_2
+make PROJECT_MODEL=_model_3
+make PROJECT_MODEL=_model_3 MANUF_CODE=4742 IMAGE_TYPE=514

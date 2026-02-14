@@ -109,6 +109,7 @@ zcl_basicAttr_t g_zcl_basicAttrs =
     .powerSource    = POWER_SOURCE_BATTERY,
     .swBuildId      = ZCL_BASIC_SW_BUILD_ID,
     .deviceEnable   = TRUE,
+    .productLabel   = {0},
 };
 
 const zclAttrInfo_t basic_attrTbl[] =
@@ -123,6 +124,7 @@ const zclAttrInfo_t basic_attrTbl[] =
     { ZCL_ATTRID_BASIC_POWER_SOURCE,        ZCL_ENUM8,    R,  (uint8_t*)&g_zcl_basicAttrs.powerSource},
     { ZCL_ATTRID_BASIC_DEV_ENABLED,         ZCL_BOOLEAN,  RW, (uint8_t*)&g_zcl_basicAttrs.deviceEnable},
     { ZCL_ATTRID_BASIC_SW_BUILD_ID,         ZCL_CHAR_STR, R,  (uint8_t*)&g_zcl_basicAttrs.swBuildId},
+    { ZCL_ATTRID_BASIC_PRODUCT_LABEL,       ZCL_CHAR_STR, R,  (uint8_t*)&g_zcl_basicAttrs.productLabel},
 
     { ZCL_ATTRID_GLOBAL_CLUSTER_REVISION,   ZCL_UINT16,   R,  (uint8_t*)&zcl_attr_global_clusterRevision},
 
@@ -236,18 +238,24 @@ const zclAttrInfo_t iasZone_attrTbl[] =
 zcl_onOffSwitchCfgAttr_t g_zcl_onOffSwitchCfgAttrs = {
 	.switchType     = ZCL_SWITCH_TYPE_TOGGLE,
     .switchActions  = ZCL_SWITCH_ACTION_OFF_ON,
+    .on_cmd_off     = DEFAULT_ON_CMD_OFF,
+    .off_cmd_off    = DEFAULT_OFF_CMD_OFF,
     .delay_on       = DELAY_ON_MIN,
     .delay_off      = DELAY_OFF_MIN,
+    .model          = DEVICE_MODEL,
 };
 
 const zclAttrInfo_t onoff_switch_cfg_attrTbl[] =
 {
-    { ZCL_ATTRID_SWITCH_TYPE,               ZCL_ENUM8,  R,  (u8*)&g_zcl_onOffSwitchCfgAttrs.switchType    },
-    { ZCL_ATTRID_SWITCH_ACTION,             ZCL_ENUM8,  RWR,(u8*)&g_zcl_onOffSwitchCfgAttrs.switchActions },
-    { ZCL_ATTRID_SWITCH_DELAY_ON,           ZCL_UINT8,  RWR,(u8*)&g_zcl_onOffSwitchCfgAttrs.delay_on      },
-    { ZCL_ATTRID_SWITCH_DELAY_OFF,          ZCL_UINT8,  RWR,(u8*)&g_zcl_onOffSwitchCfgAttrs.delay_off     },
+    { ZCL_ATTRID_SWITCH_TYPE,               ZCL_ENUM8,   R,   (u8*)&g_zcl_onOffSwitchCfgAttrs.switchType    },
+    { ZCL_ATTRID_SWITCH_ACTION,             ZCL_ENUM8,   RWR, (u8*)&g_zcl_onOffSwitchCfgAttrs.switchActions },
+    { ZCL_ATTRID_SWITCH_DELAY_ON,           ZCL_UINT8,   RWR, (u8*)&g_zcl_onOffSwitchCfgAttrs.delay_on      },
+    { ZCL_ATTRID_SWITCH_DELAY_OFF,          ZCL_UINT8,   RWR, (u8*)&g_zcl_onOffSwitchCfgAttrs.delay_off     },
+    { ZCL_ATTRID_DOOR_SENSOR_MODEL,         ZCL_ENUM8,   RWR, (u8*)&g_zcl_onOffSwitchCfgAttrs.model         },
+    { ZCL_ATTRID_ON_CMD_OFF,                ZCL_BOOLEAN, RWR, (u8*)&g_zcl_onOffSwitchCfgAttrs.on_cmd_off    },
+    { ZCL_ATTRID_OFF_CMD_OFF,               ZCL_BOOLEAN, RWR, (u8*)&g_zcl_onOffSwitchCfgAttrs.off_cmd_off   },
 
-    { ZCL_ATTRID_GLOBAL_CLUSTER_REVISION,   ZCL_UINT16, R,  (u8*)&zcl_attr_global_clusterRevision         },
+    { ZCL_ATTRID_GLOBAL_CLUSTER_REVISION,   ZCL_UINT16,  R,   (u8*)&zcl_attr_global_clusterRevision         },
 };
 
 #define ZCL_ON_OFF_SWITCH_CFG_ATTR1_NUM       sizeof(onoff_switch_cfg_attrTbl) / sizeof(zclAttrInfo_t)

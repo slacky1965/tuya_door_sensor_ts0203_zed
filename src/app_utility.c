@@ -19,6 +19,7 @@ void start_message() {
 #if UART_PRINTF_MODE
     const uint8_t version[] = ZCL_BASIC_SW_BUILD_ID;
     printf("Firmware version: %s\r\n", version+1);
+    printf("Device model is 'model_%d'\r\n", device_door_model);
 #endif
 }
 
@@ -29,18 +30,18 @@ int32_t delayedMcuResetCb(void *arg) {
     return -1;
 }
 
-int32_t delayedFactoryResetCb(void *arg) {
-
-    zb_resetDevice2FN();
-    zb_deviceFactoryNewSet(true);
-
-    g_appCtx.timerFactoryReset = NULL;
-
-//    printf("Cb Factory new: %s\r\n", zb_isDeviceFactoryNew()?"yes":"no");
-
-
-    return -1;
-}
+//int32_t delayedFactoryResetCb(void *arg) {
+//
+//    zb_resetDevice2FN();
+//    zb_deviceFactoryNewSet(true);
+//
+//    g_appCtx.timerFactoryReset = NULL;
+//
+////    printf("Cb Factory new: %s\r\n", zb_isDeviceFactoryNew()?"yes":"no");
+//
+//
+//    return -1;
+//}
 
 int32_t delayedFullResetCb(void *arg) {
 
@@ -68,32 +69,12 @@ void app_setPollRate(uint32_t sec) {
 
 }
 
+int32_t net_steer_start_offCb(void *args) {
 
-//int32_t no_joinedCb(void *arg) {
-//
-//    if (!zb_isDeviceJoinedNwk()) {
-//
-//        if (tl_stackBusy() || !zb_isTaskDone()) {
-//
-////            printf("tl_stackBusy: %s,  zb_isTaskDone: %d\r\n", tl_stackBusy()?"true":"false", zb_isTaskDone());
-//            return TIMEOUT_1MIN;
-//        }
-//
-//#if UART_PRINTF_MODE && DEBUG_PM
-//        printf("Without network more then 30 minutes! Deep sleep ...\r\n");
-//#endif
-//
-//        drv_pm_wakeupPinLevelChange(pin_PmCfg, sizeof(pin_PmCfg)/sizeof(drv_pm_pinCfg_t));
-//
-//        apsCleanToStopSecondClock();
-//
-//        drv_disable_irq();
-//        rf_paShutDown();
-//        drv_pm_deepSleep_frameCnt_set(ss_outgoingFrameCntGet());
-//
-//        drv_pm_longSleep(PM_SLEEP_MODE_DEEPSLEEP, PM_WAKEUP_SRC_PAD, 1);
-//    }
-//
-//    g_appCtx.timerNoJoinedEvt = NULL;
-//    return -1;
-//}
+    g_appCtx.net_steer_start = false;
+
+    light_blink_stop();
+
+    return -1;
+}
+

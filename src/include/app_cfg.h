@@ -23,12 +23,8 @@
  *
  *******************************************************************************************************/
 
-#pragma once
-
-/* Enable C linkage for C++ Compilers: */
-#if defined(__cplusplus)
-extern "C" {
-#endif
+#ifndef SRC_INCLUDE_APP_CFG_H_
+#define SRC_INCLUDE_APP_CFG_H_
 
 #include "app_types.h"
 
@@ -54,12 +50,20 @@ extern "C" {
 #define APP_OTA_PERIODIC_QUERY_INTERVAL (1080 * 60)     /* start the OTA request after the set seconds */
 
 /**********************************************************************
+ * Product Information
+ * max 24 symbols
+ */
+
+#define ZCL_BASIC_MFG_NAME     {10,'S','l','a','c','k','y','-','D','I','Y'}
+#define ZCL_BASIC_MODEL_ID     {14,'T','S','0','2','0','3','-','z','2','0','-','S','l','D'}
+
+/**********************************************************************
  * Version configuration
  */
 #include "version_cfg.h"
 
 /* Debug mode config */
-#define	UART_PRINTF_MODE                ON
+#define	UART_PRINTF_MODE                OFF
 #define USB_PRINTF_MODE         		OFF
 
 #define DEBUG_BUTTON                    ON
@@ -69,6 +73,12 @@ extern "C" {
 #define DEBUG_OTA                       OFF
 #define DEBUG_STA_STATUS                OFF
 #define DEBUG_ONOFF                     ON
+
+#if UART_PRINTF_MODE
+#define DEBUG_INFO_TX_PIN       GPIO_PB1    //fake gpio for 32pin's chip
+#define DEBUG_BAUDRATE          115200
+#endif /* UART_PRINTF_MODE */
+
 /* PM */
 #define PM_ENABLE						ON
 
@@ -105,13 +115,6 @@ extern "C" {
     #error "MCU is undefined!"
 #endif
 
-/* Board include */
-#if defined(BOARD)
-#include "board_ts0203_zbeacon.h"
-#include "board_ts0203_hufxidjp.h"
-#endif
-
-
 /* Voltage detect module */
 /* If VOLTAGE_DETECT_ENABLE is set,
  * 1) if MCU_CORE_826x is defined, the DRV_ADC_VBAT_MODE mode is used by default,
@@ -123,7 +126,13 @@ extern "C" {
  * such as VCC.
  */
 #define VOLTAGE_DETECT_ENABLE                       ON
-#define VOLTAGE_DETECT_ADC_PIN                      VOLTAGE_DETECT_PIN
+#if defined(MCU_CORE_826x)
+    #define VOLTAGE_DETECT_ADC_PIN                  0
+#elif defined(MCU_CORE_8258) || defined(MCU_CORE_8278)
+    #define VOLTAGE_DETECT_ADC_PIN                  GPIO_PC5
+#elif defined(MCU_CORE_B91)
+    #define VOLTAGE_DETECT_ADC_PIN                  ADC_GPIO_PB0
+#endif
 
 /* Watch dog module */
 #define MODULE_WATCHDOG_ENABLE						OFF
@@ -164,7 +173,13 @@ typedef enum{
 	EV_POLL_MAX,
 }ev_poll_e;
 
-/* Disable C linkage for C++ Compilers: */
-#if defined(__cplusplus)
-}
-#endif
+/**********************************************************************
+ * Keyboard configuration
+ */
+enum {
+    VK_SW1 = 0x01,
+};
+
+#define KB_MAP_NORMAL       {{VK_SW1,}}
+
+#endif /* SRC_INCLUDE_APP_CFG_H_ */

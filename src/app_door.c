@@ -1,6 +1,5 @@
 #include "app_main.h"
 
-#define DOOR_DEBOUNCE_US	(100 * 1000)	// 100 ms
 #define DOOR_CLOSE			0x00
 #define DOOR_OPEN			0x01
 
@@ -39,14 +38,14 @@ void door_handler() {
         return;
     }
 
-    if (drv_gpio_read(DOOR_GPIO)) {
+    if (drv_gpio_read(device->door_gpio.gpio)) {
         close_count = 0;
         if (!g_appCtx.open) {
             if (!open_count) {
                 open_count++;
                 time_open = clock_time();
             } else if (open_count == 1) {
-                if (clock_time_exceed(time_open, DOOR_DEBOUNCE_US)) {
+                if (clock_time_exceed(time_open, device->door_debounce * 1000)) {
                     open_count++;
                 }
             }
@@ -54,7 +53,7 @@ void door_handler() {
                 g_appCtx.open = true;
                 light_blink_stop();
                 light_blink_start(1, 30, 30);
-                printf("door is open\r\n");
+//                printf("door is open\r\n");
                 open_count++;
                 door_ias(DOOR_OPEN);
                 cmd_onoff = ZCL_CMD_ONOFF_ON;
@@ -91,7 +90,7 @@ void door_handler() {
                 close_count++;
                 time_close = clock_time();
             } else if (close_count == 1) {
-                if (clock_time_exceed(time_close, DOOR_DEBOUNCE_US)) {
+                if (clock_time_exceed(time_close, device->door_debounce * 1000)) {
                     close_count++;
                 }
             }
@@ -99,7 +98,7 @@ void door_handler() {
                 g_appCtx.open = false;
                 light_blink_stop();
                 light_blink_start(1, 30, 30);
-                printf("door is close\r\n");
+//                printf("door is close\r\n");
                 close_count++;
                 door_ias(DOOR_CLOSE);
                 cmd_onoff = ZCL_SWITCH_ACTION_ON_OFF;

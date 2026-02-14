@@ -14,6 +14,7 @@ typedef struct{
     uint8_t  manuName[ZCL_BASIC_MAX_LENGTH];
     uint8_t  modelId[ZCL_BASIC_MAX_LENGTH];
     uint8_t  dateCode[ZCL_BASIC_MAX_LENGTH];
+    uint8_t  productLabel[ZCL_BASIC_MAX_LENGTH];
     uint8_t  powerSource;
     uint8_t  genDevClass;                        //attr 8
     uint8_t  genDevType;                         //attr 9
@@ -60,6 +61,9 @@ typedef struct {
     uint8_t switchActions;
     uint8_t delay_on;
     uint8_t delay_off;
+    uint8_t model;
+    uint8_t on_cmd_off;
+    uint8_t off_cmd_off;
 } zcl_onOffSwitchCfgAttr_t;
 
 extern const zcl_specClusterInfo_t g_appEp1ClusterList[];
