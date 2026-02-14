@@ -80,7 +80,7 @@ void factoryRst_handler(void){
 }
 
 void factoryRst_init(void) {
-    printf("factoryRst_init(). factoryRst_powerCnt: %d\r\n", factoryRst_powerCnt);
+//    printf("factoryRst_init(). factoryRst_powerCnt: %d\r\n", factoryRst_powerCnt);
 	factoryRst_powerCntRestore();
 	factoryRst_powerCnt++;
 	factoryRst_powerCntSave();

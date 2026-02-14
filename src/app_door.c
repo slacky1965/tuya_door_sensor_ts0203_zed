@@ -53,7 +53,7 @@ void door_handler() {
                 g_appCtx.open = true;
                 light_blink_stop();
                 light_blink_start(1, 30, 30);
-                printf("door is open\r\n");
+//                printf("door is open\r\n");
                 open_count++;
                 door_ias(DOOR_OPEN);
                 cmd_onoff = ZCL_CMD_ONOFF_ON;
@@ -98,7 +98,7 @@ void door_handler() {
                 g_appCtx.open = false;
                 light_blink_stop();
                 light_blink_start(1, 30, 30);
-                printf("door is close\r\n");
+//                printf("door is close\r\n");
                 close_count++;
                 door_ias(DOOR_CLOSE);
                 cmd_onoff = ZCL_SWITCH_ACTION_ON_OFF;

@@ -63,6 +63,6 @@ void cmdOnOff(uint8_t command) {
     dstEpInfo.profileId = HA_PROFILE_ID;
     dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
     cmdOnOffSend(APP_ENDPOINT1, &dstEpInfo, command);
-    printf("OnOffCmf send. Command: 0x%02x\r\n", command);
+//    printf("OnOffCmf send. Command: 0x%02x\r\n", command);
 }
 

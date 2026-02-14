@@ -190,14 +190,14 @@ static void app_zclWriteReqCmd(uint8_t endPoint, uint16_t clusterId, zclWriteCmd
                 if (attr[i].attrData[0] > DELAY_OFF_MAX) onoffCfgAttrs->delay_off = DELAY_OFF_MAX;
                 zcl_onOffCfgAttr_save();
             } else if (attr[i].attrID == ZCL_ATTRID_ON_CMD_OFF) {
-                printf("On command is off: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
+//                printf("On command is off: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
                 zcl_onOffCfgAttr_save();
             } else if (attr[i].attrID == ZCL_ATTRID_OFF_CMD_OFF) {
-                printf("Off command is off: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
+//                printf("Off command is off: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
                 zcl_onOffCfgAttr_save();
             } else if (attr[i].attrID == ZCL_ATTRID_DOOR_SENSOR_MODEL) {
                 uint8_t model = attr[i].attrData[0];
-                printf("model: 0x%02x, ep: %d\r\n", model, endPoint);
+//                printf("model: 0x%02x, ep: %d\r\n", model, endPoint);
                 if (model >= DEVICE_DOOR_NONE && model < DEVICE_DOOR_MAX) {
                     device_model_save(model);
                 }
@@ -571,7 +571,7 @@ status_t app_powerCfgCb(zclIncomingAddrInfo_t *pAddrInfo, uint8_t cmdId, void *c
  */
 static void app_zclAddGroupRspCmdHandler(zcl_addGroupRsp_t *pAddGroupRsp)
 {
-    printf("app_zclAddGroupRspCmdHandler\r\n");
+//    printf("app_zclAddGroupRspCmdHandler\r\n");
 }
 
 /*********************************************************************
@@ -585,7 +585,7 @@ static void app_zclAddGroupRspCmdHandler(zcl_addGroupRsp_t *pAddGroupRsp)
  */
 static void app_zclViewGroupRspCmdHandler(zcl_viewGroupRsp_t *pViewGroupRsp)
 {
-    printf("app_zclViewGroupRspCmdHandler\r\n");
+//    printf("app_zclViewGroupRspCmdHandler\r\n");
 }
 
 /*********************************************************************
@@ -599,7 +599,7 @@ static void app_zclViewGroupRspCmdHandler(zcl_viewGroupRsp_t *pViewGroupRsp)
  */
 static void app_zclRemoveGroupRspCmdHandler(zcl_removeGroupRsp_t *pRemoveGroupRsp)
 {
-    printf("app_zclRemoveGroupRspCmdHandler\r\n");
+//    printf("app_zclRemoveGroupRspCmdHandler\r\n");
 }
 
 /*********************************************************************
@@ -613,7 +613,7 @@ static void app_zclRemoveGroupRspCmdHandler(zcl_removeGroupRsp_t *pRemoveGroupRs
  */
 static void app_zclGetGroupMembershipRspCmdHandler(zcl_getGroupMembershipRsp_t *pGetGroupMembershipRsp)
 {
-    printf("app_zclGetGroupMembershipRspCmdHandler\r\n");
+//    printf("app_zclGetGroupMembershipRspCmdHandler\r\n");
 }
 
 /*********************************************************************
@@ -629,7 +629,7 @@ static void app_zclGetGroupMembershipRspCmdHandler(zcl_getGroupMembershipRsp_t *
  */
 status_t app_groupCb(zclIncomingAddrInfo_t *pAddrInfo, uint8_t cmdId, void *cmdPayload)
 {
-    printf("app_groupCb\r\n");
+//    printf("app_groupCb\r\n");
 	if(pAddrInfo->dstEp == APP_ENDPOINT1){
 		if(pAddrInfo->dirCluster == ZCL_FRAME_SERVER_CLIENT_DIR){
 			switch(cmdId){
