@@ -10,20 +10,40 @@ static uint32_t time_close = 0;
 
 static ev_timer_event_t *timerDelayOnEvt = NULL;
 static ev_timer_event_t *timerDelayOffEvt = NULL;
+static ev_timer_event_t *timerOnOffRepeatEvt = NULL;
 
-int32_t delay_onCb(void *args) {
+static int32_t onoff_repeatCb(void *args) {
 
     uint8_t cmd_onoff = (uint8_t)((uint32_t)args);
     cmdOnOff(cmd_onoff);
+
+    timerOnOffRepeatEvt = NULL;
+    return -1;
+}
+
+static int32_t delay_onCb(void *args) {
+
+    uint8_t cmd_onoff = (uint8_t)((uint32_t)args);
+    cmdOnOff(cmd_onoff);
+
+    if (timerOnOffRepeatEvt) {
+        TL_ZB_TIMER_CANCEL(&timerOnOffRepeatEvt);
+    }
+    timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
 
     timerDelayOnEvt = NULL;
     return -1;
 }
 
-int32_t delay_offCb(void *args) {
+static int32_t delay_offCb(void *args) {
 
     uint8_t cmd_onoff = (uint8_t)((uint32_t)args);
     cmdOnOff(cmd_onoff);
+
+    if (timerOnOffRepeatEvt) {
+        TL_ZB_TIMER_CANCEL(&timerOnOffRepeatEvt);
+    }
+    timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
 
     timerDelayOffEvt = NULL;
     return -1;
@@ -80,6 +100,10 @@ void door_handler() {
                     timerDelayOnEvt = TL_ZB_TIMER_SCHEDULE(delay_onCb, (void *)((uint32_t)cmd_onoff), onoffCfgAttrs->delay_on * 1000);
                 } else {
                     cmdOnOff(cmd_onoff);
+                    if (timerOnOffRepeatEvt) {
+                        TL_ZB_TIMER_CANCEL(&timerOnOffRepeatEvt);
+                    }
+                    timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
                 }
             }
         }
@@ -125,6 +149,10 @@ void door_handler() {
                     timerDelayOffEvt = TL_ZB_TIMER_SCHEDULE(delay_offCb, (void *)((uint32_t)cmd_onoff), onoffCfgAttrs->delay_off * 1000);
                 } else {
                     cmdOnOff(cmd_onoff);
+                    if (timerOnOffRepeatEvt) {
+                        TL_ZB_TIMER_CANCEL(&timerOnOffRepeatEvt);
+                    }
+                    timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
                 }
             }
         }
