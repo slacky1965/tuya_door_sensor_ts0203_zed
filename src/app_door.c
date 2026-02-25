@@ -29,7 +29,8 @@ static int32_t delay_onCb(void *args) {
     if (timerOnOffRepeatEvt) {
         TL_ZB_TIMER_CANCEL(&timerOnOffRepeatEvt);
     }
-    timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
+    if (cmd_onoff != ZCL_CMD_ONOFF_TOGGLE)
+        timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
 
     timerDelayOnEvt = NULL;
     return -1;
@@ -43,7 +44,8 @@ static int32_t delay_offCb(void *args) {
     if (timerOnOffRepeatEvt) {
         TL_ZB_TIMER_CANCEL(&timerOnOffRepeatEvt);
     }
-    timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
+    if (cmd_onoff != ZCL_CMD_ONOFF_TOGGLE)
+        timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
 
     timerDelayOffEvt = NULL;
     return -1;
@@ -103,7 +105,8 @@ void door_handler() {
                     if (timerOnOffRepeatEvt) {
                         TL_ZB_TIMER_CANCEL(&timerOnOffRepeatEvt);
                     }
-                    timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
+                    if (cmd_onoff != ZCL_CMD_ONOFF_TOGGLE)
+                        timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
                 }
             }
         }
@@ -152,7 +155,8 @@ void door_handler() {
                     if (timerOnOffRepeatEvt) {
                         TL_ZB_TIMER_CANCEL(&timerOnOffRepeatEvt);
                     }
-                    timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
+                    if (cmd_onoff != ZCL_CMD_ONOFF_TOGGLE)
+                        timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
                 }
             }
         }
