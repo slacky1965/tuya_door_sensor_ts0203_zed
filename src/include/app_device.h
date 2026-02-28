@@ -28,8 +28,8 @@ typedef struct __attribute__((packed)) {
 
 typedef struct __attribute__((packed)) {
     uint8_t             device_en :1;
-    uint8_t             len_on :1;
-    uint8_t             len_off :1;
+    uint8_t             led_on :1;
+    uint8_t             led_off :1;
     uint8_t             reserve :5;
     device_gpio_t       button_gpio;
     device_gpio_t       led_gpio;
