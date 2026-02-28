@@ -128,12 +128,12 @@ void cmdOnOff(uint8_t command, uint8_t app_mode) {
             break;
         case ONOFF_CMD_REPEAT:
             for (uint8_t i = 0; i < DEV_ONOFF_CMD_NUM; i++) {
-                printf("ONOFF_CMD_REPEAT. used:       %d\r\n", dev_onoff_cmd[i].used);
-                printf("ONOFF_CMD_REPEAT. group:      %d\r\n", dev_onoff_cmd[i].group);
-                printf("ONOFF_CMD_REPEAT. command:    %d\r\n", dev_onoff_cmd[i].command);
-                printf("ONOFF_CMD_REPEAT. seq_num:    %d\r\n", dev_onoff_cmd[i].seq_num);
-                printf("ONOFF_CMD_REPEAT. cmd_send:   %d\r\n", dev_onoff_cmd[i].cmd_send);
-                printf("ONOFF_CMD_REPEAT. status_rsp: %d\r\n\r\n", dev_onoff_cmd[i].status_rsp);
+//                printf("ONOFF_CMD_REPEAT. used:       %d\r\n", dev_onoff_cmd[i].used);
+//                printf("ONOFF_CMD_REPEAT. group:      %d\r\n", dev_onoff_cmd[i].group);
+//                printf("ONOFF_CMD_REPEAT. command:    %d\r\n", dev_onoff_cmd[i].command);
+//                printf("ONOFF_CMD_REPEAT. seq_num:    %d\r\n", dev_onoff_cmd[i].seq_num);
+//                printf("ONOFF_CMD_REPEAT. cmd_send:   %d\r\n", dev_onoff_cmd[i].cmd_send);
+//                printf("ONOFF_CMD_REPEAT. status_rsp: %d\r\n\r\n", dev_onoff_cmd[i].status_rsp);
                 if (dev_onoff_cmd[i].used && (dev_onoff_cmd[i].cmd_send && !dev_onoff_cmd[i].status_rsp)) {
                     if (dev_onoff_cmd[i].group) {
                         /* command for groups */
@@ -190,7 +190,7 @@ void set_send_dev_onoff_cmd(uint8_t seq_num) {
     for (uint8_t i = 0; i < DEV_ONOFF_CMD_NUM; i++) {
         if (dev_onoff_cmd[i].used && dev_onoff_cmd[i].seq_num == seq_num) {
             dev_onoff_cmd[i].used = false;
-            DEBUG(DEBUG_ONOFF_EN, "i: %d, set_send_dev_onoff_cmd. seq_num: %d\r\n", i, seq_num);
+//            DEBUG(DEBUG_ONOFF_EN, "i: %d, set_send_dev_onoff_cmd. seq_num: %d\r\n", i, seq_num);
         }
     }
 }
