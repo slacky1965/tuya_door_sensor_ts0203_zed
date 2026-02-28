@@ -20,9 +20,15 @@ else
 			IMAGE_TYPE ?= 54179
 			PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_DOOR_3"
 		else
-			MANUF_CODE ?= 4417
-			IMAGE_TYPE ?= 54179
-			PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_DOOR_NONE"
+			ifeq ($(PROJECT_MODEL),_model_4)
+				MANUF_CODE ?= 4417
+				IMAGE_TYPE ?= 54179
+				PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_DOOR_4"
+			else
+				MANUF_CODE ?= 4417
+				IMAGE_TYPE ?= 54179
+				PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_DOOR_NONE"
+			endif
 		endif
 	endif
 endif
@@ -32,7 +38,7 @@ COMPILE_OS = $(shell uname -o)
 LINUX_OS = GNU/Linux
 
 ifeq ($(COMPILE_OS),$(LINUX_OS))	
-	COMPILE_PREFIX = /opt/tc32/bin/tc32
+	COMPILE_PREFIX ?= /opt/tc32/bin/tc32
 else
 	COMPILE_PREFIX = C:/TelinkSDK/opt/tc32/bin/tc32
 endif
@@ -222,6 +228,7 @@ $(BIN_FILE): $(ELF_FILE)
 	@python3 $(MAKE_OTA) -t $(PROJECT_NAME) -s "Slacky-DIY OTA" $(BIN_PATH)/$(PROJECT_FILE_NAME)_$(VERSION_RELEASE).$(VERSION_BUILD).bin 
 	@echo 'Create zigbee Tuya OTA file'
 	@python3 $(MAKE_OTA) -t $(PROJECT_FILE_NAME) -m $(MANUF_CODE) -i $(IMAGE_TYPE) -v0x1111114b -s "Slacky-DIY OTA" $(BIN_PATH)/$(PROJECT_FILE_NAME)_$(VERSION_RELEASE).$(VERSION_BUILD).bin
+	-$(RM) $(BIN_PATH)/1141-d3a3-1111114b-tuya_door_sensor_ts0203_zed_model_4.zigbee
 	@echo ' '
 	@echo 'Finished building: $@'
 	@echo ' '

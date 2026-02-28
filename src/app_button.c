@@ -8,9 +8,7 @@ static void buttonKeepPressed(u8 btNum) {
     button.ctn = 0;
 
     if(btNum == VK_SW1 && device_door_model != DEVICE_DOOR_NONE) {
-#if UART_PRINTF_MODE && DEBUG_BUTTON
-        printf("The button was keep pressed for 5 seconds\r\n");
-#endif
+        DEBUG(DEBUG_BUTTON_EN, "The button was keep pressed for 5 seconds\r\n");
         zb_factoryReset();
         g_appCtx.net_steer_start = true;
         TL_ZB_TIMER_SCHEDULE(net_steer_start_offCb, NULL, TIMEOUT_1MIN30SEC);
@@ -22,9 +20,7 @@ static void buttonKeepPressed(u8 btNum) {
 static void buttonSinglePressed(u8 btNum) {
 
     if (btNum == VK_SW1) {
-#if UART_PRINTF_MODE && DEBUG_BUTTON
-        printf("Button push 1 time\r\n");
-#endif
+        DEBUG(DEBUG_BUTTON_EN, "Button push 1 time\r\n");
         if (zb_isDeviceJoinedNwk()) {
             app_setPollRate(TIMEOUT_20SEC);
             TL_ZB_TIMER_SCHEDULE(forcedReportCb, NULL, TIMEOUT_100MS);

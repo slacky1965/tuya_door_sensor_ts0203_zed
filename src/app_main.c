@@ -145,12 +145,13 @@ void user_app_init(void)
 
     batteryCb(NULL);
 
-#if DEBUG_BATTERY
+#if DEBUG_BATTERY_EN
     g_appCtx.timerBatteryEvt = TL_ZB_TIMER_SCHEDULE(batteryCb, NULL, 5000);
 #else
     g_appCtx.timerBatteryEvt = TL_ZB_TIMER_SCHEDULE(batteryCb, NULL, BATTERY_TIMER_INTERVAL);
 #endif
 
+    dev_onoff_cmd_init();
 }
 
 
@@ -184,9 +185,7 @@ extern volatile uint16_t T_evtExcept[4];
 
 static void appSysException(void) {
 
-#if UART_PRINTF_MODE
-    printf("app_sysException, line: %d, event: 0x%02x, reset\r\n", T_evtExcept[0], T_evtExcept[1]);
-#endif
+    DEBUG(UART_PRINTF_MODE, "app_sysException, line: %d, event: 0x%02x, reset\r\n", T_evtExcept[0], T_evtExcept[1]);
 
 #if 1
     SYSTEM_RESET();

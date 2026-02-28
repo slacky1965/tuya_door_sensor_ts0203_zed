@@ -14,6 +14,7 @@
 #define TIMEOUT_10MS               10       /* timeout 10  ms   */
 #define TIMEOUT_100MS              100      /* timeout 100 ms   */
 #define TIMEOUT_250MS              250      /* timeout 250 ms   */
+#define TIMEOUT_300MS              300      /* timeout 300 ms   */
 #define TIMEOUT_500MS              500      /* timeout 900 ms   */
 #define TIMEOUT_900MS              900      /* timeout 900 ms   */
 #define TIMEOUT_1SEC        1    * 1000     /* timeout 1 sec    */

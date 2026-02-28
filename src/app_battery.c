@@ -22,11 +22,9 @@ int32_t batteryCb(void *arg) {
     uint8_t voltage = (uint8_t)(voltage_raw/100);
     uint8_t level = get_battery_level(voltage_raw);
 
-#if UART_PRINTF_MODE && DEBUG_BATTERY
-    printf("Voltage_raw: %d\r\n", voltage_raw);
-    printf("Voltage:     %d\r\n", voltage);
-    printf("Level:       %d\r\n", level);
-#endif
+    DEBUG(DEBUG_BATTERY_EN, "Voltage_raw: %d\r\n", voltage_raw);
+    DEBUG(DEBUG_BATTERY_EN, "Voltage:     %d\r\n", voltage);
+    DEBUG(DEBUG_BATTERY_EN, "Level:       %d\r\n", level);
 
     zcl_setAttrVal(APP_ENDPOINT1, ZCL_CLUSTER_GEN_POWER_CFG, ZCL_ATTRID_BATTERY_VOLTAGE, &voltage);
     zcl_setAttrVal(APP_ENDPOINT1, ZCL_CLUSTER_GEN_POWER_CFG, ZCL_ATTRID_BATTERY_PERCENTAGE_REMAINING, &level);
