@@ -38,7 +38,7 @@ COMPILE_OS = $(shell uname -o)
 LINUX_OS = GNU/Linux
 
 ifeq ($(COMPILE_OS),$(LINUX_OS))	
-	COMPILE_PREFIX = /opt/tc32/bin/tc32
+	COMPILE_PREFIX ?= /opt/tc32/bin/tc32
 else
 	COMPILE_PREFIX = C:/TelinkSDK/opt/tc32/bin/tc32
 endif
