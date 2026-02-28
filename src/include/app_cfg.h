@@ -73,8 +73,8 @@
 #define DEBUG_OTA_EN                    OFF
 #define DEBUG_STA_STATUS_EN             OFF
 #define DEBUG_ONOFF_EN                  ON
-#define DEBUG_DOOR_EN                   ON
-#define DEBUG_ZCL_CB_EN                 ON
+#define DEBUG_DOOR_EN                   OFF
+#define DEBUG_ZCL_CB_EN                 OFF
 
 #if UART_PRINTF_MODE
 #define DEBUG_INFO_TX_PIN       GPIO_PB1    //fake gpio for 32pin's chip

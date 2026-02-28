@@ -14,6 +14,7 @@ typedef enum {
     DEVICE_DOOR_1,                        /* TS0203 Zbeacon Tuya          */
     DEVICE_DOOR_2,                        /* TS0203 _TZ3000_hufxidjp Tuya */
     DEVICE_DOOR_3,                        /* TS0203 _TZ3000_6zvw8ham Tuya */
+    DEVICE_DOOR_4,                        /* ZG-102Z HOBEIAN HOBEIAN      */
     DEVICE_DOOR_MAX
 } device_door_model_t;
 
