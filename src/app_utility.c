@@ -7,20 +7,14 @@ uint32_t mcuBootAddrGet(void);
 
 void start_message() {
 #ifdef ZCL_OTA
-#if UART_PRINTF_MODE
-        printf("OTA mode enabled. MCU boot from address: 0x%x\r\n", mcuBootAddrGet());
-#endif /* UART_PRINTF_MODE */
+    DEBUG(UART_PRINTF_MODE, "OTA mode enabled. MCU boot from address: 0x%x\r\n", mcuBootAddrGet());
 #else
-#if UART_PRINTF_MODE
-    printf("OTA mode desabled. MCU boot from address: 0x%x\r\n", mcuBootAddrGet());
-#endif /* UART_PRINTF_MODE */
+    DEBUG(UART_PRINTF_MODE, "OTA mode desabled. MCU boot from address: 0x%x\r\n", mcuBootAddrGet());
 #endif
 
-#if UART_PRINTF_MODE
     const uint8_t version[] = ZCL_BASIC_SW_BUILD_ID;
-    printf("Firmware version: %s\r\n", version+1);
-    printf("Device model is 'model_%d'\r\n", device_door_model);
-#endif
+    DEBUG(UART_PRINTF_MODE, "Firmware version: %s\r\n", version+1);
+    DEBUG(UART_PRINTF_MODE, "Device model is 'model_%d'\r\n", device_door_model);
 }
 
 int32_t delayedMcuResetCb(void *arg) {

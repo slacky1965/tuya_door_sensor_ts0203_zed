@@ -22,7 +22,7 @@ static drv_pm_pinCfg_t g_doorPmCfg[2];
 #endif
 
 
-#if PM_ENABLE && DEBUG_PM
+#if PM_ENABLE && DEBUG_PM_EN
 
 static void debug_pm_lowPowerEnter(void) {
 #if PM_ENABLE
@@ -58,7 +58,7 @@ static void debug_pm_lowPowerEnter(void) {
         }
     }
 
-    printf("sleepTime: %d, longSleep: %d, period: %d\r\n", sleepTime, longSleep, timerEvt?timerEvt->period:-1);
+    DEBUG(DEBUG_PM_EN, "sleepTime: %d, longSleep: %d, period: %d\r\n", sleepTime, longSleep, timerEvt?timerEvt->period:-1);
 
 #if defined(MCU_CORE_826x)
     drv_pm_sleep_mode_e sleepMode = (wakeupSrc & PM_WAKEUP_SRC_TIMER) ? PM_SLEEP_MODE_SUSPEND : PM_SLEEP_MODE_DEEPSLEEP;
@@ -89,7 +89,7 @@ static void debug_pm_lowPowerEnter(void) {
 void app_pm_lowPowerEnter() {
 
     drv_pm_wakeupPinLevelChange(g_doorPmCfg, sizeof(g_doorPmCfg)/sizeof(drv_pm_pinCfg_t));
-#if PM_ENABLE && DEBUG_PM
+#if PM_ENABLE && DEBUG_PM_EN
     debug_pm_lowPowerEnter();
 #else
     drv_pm_lowPowerEnter();

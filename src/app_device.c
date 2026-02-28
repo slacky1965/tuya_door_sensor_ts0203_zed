@@ -93,15 +93,11 @@ void device_model_restore() {
 
     if (model_cfg.id == ID_DEVICE_DOOR_CFG && model_cfg.crc == checksum((uint8_t*)&model_cfg, sizeof(config_door_model_t)-1)) {
         device_door_model = model_cfg.device_model;
-#if UART_PRINTF_MODE
-        printf("Model restore: model_%d\r\n", device_door_model);
-#endif
+        DEBUG(UART_PRINTF_MODE, "Model restore: model_%d\r\n", device_door_model);
         device_model_init();
     } else {
         device_door_model = DEVICE_MODEL;
-#if UART_PRINTF_MODE
-        printf("Default model: model_%d\r\n", device_door_model);
-#endif
+        DEBUG(UART_PRINTF_MODE, "Default model: model_%d\r\n", device_door_model);
         device_model_save(device_door_model);
     }
 }
@@ -116,9 +112,7 @@ void device_model_save(uint8_t model) {
     model_cfg.crc = checksum((uint8_t*)&(model_cfg), sizeof(config_door_model_t)-1);
     flash_write(ADDR_DEVICE_DOOR_CFG, sizeof(config_door_model_t), (uint8_t*)&(model_cfg));
 
-#if UART_PRINTF_MODE
-    printf("Model save: model_%d\r\n", device_door_model);
-#endif
+    DEBUG(UART_PRINTF_MODE, "Model save: model_%d\r\n", device_door_model);
 
     device_model_init();
 }

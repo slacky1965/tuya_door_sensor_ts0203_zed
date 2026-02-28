@@ -299,9 +299,7 @@ void app_otaProcessMsgHandler(u8 evt, u8 status)
     //printf("app_otaProcessMsgHandler: status = %x\n", status);
     if (evt == OTA_EVT_START) {
         if (status == ZCL_STA_SUCCESS) {
-#if UART_PRINTF_MODE && DEBUG_OTA
-            printf("OTA update start.\r\n");
-#endif /* UART_PRINTF_MODE */
+            DEBUG(DEBUG_OTA_EN, "OTA update start.\r\n");
             zb_setPollRate(QUEUE_POLL_RATE);
             g_appCtx.ota = true;
             if (g_appCtx.timerSetPollRateEvt) {
@@ -314,14 +312,10 @@ void app_otaProcessMsgHandler(u8 evt, u8 status)
         app_setPollRate(TIMEOUT_20SEC);
 
         if (status == ZCL_STA_SUCCESS) {
-#if UART_PRINTF_MODE && DEBUG_OTA
-            printf("OTA update successful.\r\n");
-#endif /* UART_PRINTF_MODE */
+            DEBUG(DEBUG_OTA_EN, "OTA update successful.\r\n");
             ota_mcuReboot();
         } else {
-#if UART_PRINTF_MODE && DEBUG_OTA
-            printf("OTA update failure. Try again.\r\n");
-#endif /* UART_PRINTF_MODE */
+            DEBUG(DEBUG_OTA_EN, "OTA update failure. Try again.\r\n");
             ota_queryStart(OTA_PERIODIC_QUERY_INTERVAL);
         }
     } else if (evt == OTA_EVT_IMAGE_DONE) {
