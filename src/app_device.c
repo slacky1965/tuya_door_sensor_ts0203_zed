@@ -142,8 +142,8 @@ void device_init() {
         door_device[devi].led_gpio.input = OFF;
         door_device[devi].led_gpio.output = ON;
         door_device[devi].led_gpio.func = AS_GPIO;
-        door_device[devi].len_on = 1;
-        door_device[devi].len_off = 0;
+        door_device[devi].led_on = 1;
+        door_device[devi].led_off = 0;
         door_device[devi].door_gpio.gpio = GPIO_PC0;
         door_device[devi].door_gpio.input = ON;
         door_device[devi].door_gpio.output = OFF;
@@ -166,8 +166,8 @@ void device_init() {
         door_device[devi].led_gpio.input = OFF;
         door_device[devi].led_gpio.output = ON;
         door_device[devi].led_gpio.func = AS_GPIO;
-        door_device[devi].len_on = 1;
-        door_device[devi].len_off = 0;
+        door_device[devi].led_on = 1;
+        door_device[devi].led_off = 0;
         door_device[devi].door_gpio.gpio = GPIO_PB5;
         door_device[devi].door_gpio.input = ON;
         door_device[devi].door_gpio.output = OFF;
@@ -190,8 +190,8 @@ void device_init() {
         door_device[devi].led_gpio.input = OFF;
         door_device[devi].led_gpio.output = ON;
         door_device[devi].led_gpio.func = AS_GPIO;
-        door_device[devi].len_on = 1;
-        door_device[devi].len_off = 0;
+        door_device[devi].led_on = 1;
+        door_device[devi].led_off = 0;
         door_device[devi].door_gpio.gpio = GPIO_PD7;
         door_device[devi].door_gpio.input = ON;
         door_device[devi].door_gpio.output = OFF;
@@ -215,8 +215,8 @@ void device_init() {
         door_device[devi].led_gpio.input = OFF;
         door_device[devi].led_gpio.output = ON;
         door_device[devi].led_gpio.func = AS_GPIO;
-        door_device[devi].len_on = 1;
-        door_device[devi].len_off = 0;
+        door_device[devi].led_on = 0;
+        door_device[devi].led_off = 1;
         door_device[devi].door_gpio.gpio = GPIO_PC1;
         door_device[devi].door_gpio.input = ON;
         door_device[devi].door_gpio.output = OFF;
