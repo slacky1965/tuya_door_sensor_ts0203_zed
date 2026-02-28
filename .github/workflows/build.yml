@@ -14,7 +14,7 @@ env:
   TOOLCHAIN_DIR: ${{github.workspace}}/tc32
   #SDK_DIR: ${{github.workspace}}/telink_zigbee_sdk
   #SDK_PREFIX: ${{github.workspace}}/telink_zigbee_sdk/tl_zigbee_sdk
-  ARTIFACT_DIR: ${{github.workspace}}/build/src/
+  ARTIFACT_DIR: ${{github.workspace}}/bin
 
 jobs:
   build:
