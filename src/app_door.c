@@ -10,27 +10,13 @@ static uint32_t time_close = 0;
 
 static ev_timer_event_t *timerDelayOnEvt = NULL;
 static ev_timer_event_t *timerDelayOffEvt = NULL;
-static ev_timer_event_t *timerOnOffRepeatEvt = NULL;
 
-static int32_t onoff_repeatCb(void *args) {
-
-    uint8_t cmd_onoff = (uint8_t)((uint32_t)args);
-    cmdOnOff(cmd_onoff);
-
-    timerOnOffRepeatEvt = NULL;
-    return -1;
-}
+bool repeat_onoff_cmd = false;
 
 static int32_t delay_onCb(void *args) {
 
     uint8_t cmd_onoff = (uint8_t)((uint32_t)args);
-    cmdOnOff(cmd_onoff);
-
-    if (timerOnOffRepeatEvt) {
-        TL_ZB_TIMER_CANCEL(&timerOnOffRepeatEvt);
-    }
-    if (cmd_onoff != ZCL_CMD_ONOFF_TOGGLE)
-        timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
+    cmdOnOff(cmd_onoff, ONOFF_CMD_CHECK_ANSWER);
 
     timerDelayOnEvt = NULL;
     return -1;
@@ -39,13 +25,7 @@ static int32_t delay_onCb(void *args) {
 static int32_t delay_offCb(void *args) {
 
     uint8_t cmd_onoff = (uint8_t)((uint32_t)args);
-    cmdOnOff(cmd_onoff);
-
-    if (timerOnOffRepeatEvt) {
-        TL_ZB_TIMER_CANCEL(&timerOnOffRepeatEvt);
-    }
-    if (cmd_onoff != ZCL_CMD_ONOFF_TOGGLE)
-        timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
+    cmdOnOff(cmd_onoff, ONOFF_CMD_CHECK_ANSWER);
 
     timerDelayOffEvt = NULL;
     return -1;
@@ -75,7 +55,7 @@ void door_handler() {
                 g_appCtx.open = true;
                 light_blink_stop();
                 light_blink_start(1, 30, 30);
-//                printf("door is open\r\n");
+                DEBUG(DEBUG_DOOR_EN, "door is open\r\n");
                 open_count++;
                 door_ias(DOOR_OPEN);
                 cmd_onoff = ZCL_CMD_ONOFF_ON;
@@ -101,12 +81,7 @@ void door_handler() {
                     }
                     timerDelayOnEvt = TL_ZB_TIMER_SCHEDULE(delay_onCb, (void *)((uint32_t)cmd_onoff), onoffCfgAttrs->delay_on * 1000);
                 } else {
-                    cmdOnOff(cmd_onoff);
-                    if (timerOnOffRepeatEvt) {
-                        TL_ZB_TIMER_CANCEL(&timerOnOffRepeatEvt);
-                    }
-                    if (cmd_onoff != ZCL_CMD_ONOFF_TOGGLE)
-                        timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
+                    cmdOnOff(cmd_onoff, ONOFF_CMD_CHECK_ANSWER);
                 }
             }
         }
@@ -125,7 +100,7 @@ void door_handler() {
                 g_appCtx.open = false;
                 light_blink_stop();
                 light_blink_start(1, 30, 30);
-//                printf("door is close\r\n");
+                DEBUG(DEBUG_DOOR_EN, "door is close\r\n");
                 close_count++;
                 door_ias(DOOR_CLOSE);
                 cmd_onoff = ZCL_SWITCH_ACTION_ON_OFF;
@@ -151,18 +126,16 @@ void door_handler() {
                     }
                     timerDelayOffEvt = TL_ZB_TIMER_SCHEDULE(delay_offCb, (void *)((uint32_t)cmd_onoff), onoffCfgAttrs->delay_off * 1000);
                 } else {
-                    cmdOnOff(cmd_onoff);
-                    if (timerOnOffRepeatEvt) {
-                        TL_ZB_TIMER_CANCEL(&timerOnOffRepeatEvt);
-                    }
-                    if (cmd_onoff != ZCL_CMD_ONOFF_TOGGLE)
-                        timerOnOffRepeatEvt = TL_ZB_TIMER_SCHEDULE(onoff_repeatCb, (void *)((uint32_t)cmd_onoff), TIMEOUT_250MS);
+                    cmdOnOff(cmd_onoff, ONOFF_CMD_CHECK_ANSWER);
                 }
             }
         }
     }
 
-
+    if (repeat_onoff_cmd) {
+        repeat_onoff_cmd = false;
+        cmdOnOff(0, ONOFF_CMD_REPEAT);
+    }
 }
 
 
