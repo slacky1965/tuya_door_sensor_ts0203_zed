@@ -30,7 +30,7 @@ jobs:
       id: TS0203-z-Sld
       run: |
         make clean
-        make PROJECT_MODEL=_model_1
+        make PROJECT_MODEL=_model_1 COMPILE_PREFIX=${{ env.TOOLCHAIN_DIR }}
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: Upload a Build Artifact
