@@ -229,6 +229,31 @@ void device_init() {
         door_device[devi].debug_gpio.func = AS_GPIO;
         door_device[devi++].debug_gpio.pull = PM_PIN_PULLUP_1M;
 
+        /* ds01 snzb-04 eWeLink - model_5*/
+        door_device[devi].device_en = ON;
+        door_device[devi].button_gpio.gpio = GPIO_PC2;
+        door_device[devi].button_gpio.input = ON;
+        door_device[devi].button_gpio.output = OFF;
+        door_device[devi].button_gpio.func = AS_GPIO;
+        door_device[devi].button_gpio.pull = PM_PIN_PULLUP_1M;
+        door_device[devi].led_gpio.gpio = GPIO_PC3;
+        door_device[devi].led_gpio.input = OFF;
+        door_device[devi].led_gpio.output = ON;
+        door_device[devi].led_gpio.func = AS_GPIO;
+        door_device[devi].led_on = 1;
+        door_device[devi].led_off = 0;
+        door_device[devi].door_gpio.gpio = GPIO_PB5;
+        door_device[devi].door_gpio.input = ON;
+        door_device[devi].door_gpio.output = OFF;
+        door_device[devi].door_gpio.func = AS_GPIO;
+        door_device[devi].door_debounce = DOOR_DEBOUNCE_MS;
+//        door_device[devi].door_debounce = 200;
+        door_device[devi].debug_gpio.gpio = UART_TX_PB1;
+        door_device[devi].debug_gpio.input = OFF;
+        door_device[devi].debug_gpio.output = ON;
+        door_device[devi].debug_gpio.func = AS_GPIO;
+        door_device[devi++].debug_gpio.pull = PM_PIN_PULLUP_1M;
+
         device_model_restore();
     } else {
         device_model_init();

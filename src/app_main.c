@@ -152,6 +152,9 @@ void user_app_init(void)
 #endif
 
     dev_onoff_cmd_init();
+
+//    DEBUG(UART_PRINTF_MODE, "Test: 0x%04x\r\n", *(uint16_t *)(0x75000));
+//    DEBUG(UART_PRINTF_MODE, "Model: 0x%02x\r\n", *(uint8_t *)(0x75002));
 }
 
 
