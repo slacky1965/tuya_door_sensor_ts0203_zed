@@ -213,7 +213,7 @@ void user_init(bool isRetention)
     device_init();
 
     /* Initialize LEDs*/
-    light_init();
+//    light_init();
 
 #if PA_ENABLE
     rf_paInit(PA_TX, PA_RX);
