@@ -200,6 +200,7 @@ static void app_zclWriteReqCmd(uint8_t endPoint, uint16_t clusterId, zclWriteCmd
                 DEBUG(DEBUG_ZCL_CB_EN, "model: 0x%02x, ep: %d\r\n", model, endPoint);
                 if (model >= DEVICE_DOOR_NONE && model < DEVICE_DOOR_MAX) {
                     device_model_save(model);
+                    TL_ZB_TIMER_SCHEDULE(delayedMcuResetCb, NULL, TIMEOUT_1SEC);
                 }
             }
         }
