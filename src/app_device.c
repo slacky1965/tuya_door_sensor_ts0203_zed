@@ -39,13 +39,16 @@ static void device_gpio_init(device_gpio_t *device_gpio) {
 static void device_model_init() {
 
     device = &door_device[device_door_model];
-    gpio_init(TRUE);
-    /* ADC */
+    if (first_start) {
+        first_start = false;
+        gpio_init(TRUE);
+        /* ADC */
 #if VOLTAGE_DETECT_ENABLE
-    drv_adc_init();
-    drv_adc_mode_pin_set(DRV_ADC_VBAT_MODE, VOLTAGE_DETECT_ADC_PIN);
-    drv_adc_enable(ON);
+        drv_adc_init();
+        drv_adc_mode_pin_set(DRV_ADC_VBAT_MODE, VOLTAGE_DETECT_ADC_PIN);
+        drv_adc_enable(ON);
 #endif
+    }
     if (device_door_model == DEVICE_DOOR_NONE) {
         device_gpio_init(&device->button_gpio);
     } else {
@@ -56,7 +59,7 @@ static void device_model_init() {
         device_gpio_init(&device->debug_gpio);
         gpio_write(device->debug_gpio.gpio, 1);
 #endif
-        light_init();
+//        light_init();
     }
     kb_drv_init();
 
@@ -99,6 +102,7 @@ void device_model_restore() {
         device_door_model = DEVICE_MODEL;
         DEBUG(UART_PRINTF_MODE, "Default model: model_%d\r\n", device_door_model);
         device_model_save(device_door_model);
+        device_model_init();
     }
 }
 
@@ -114,14 +118,12 @@ void device_model_save(uint8_t model) {
 
     DEBUG(UART_PRINTF_MODE, "Model save: model_%d\r\n", device_door_model);
 
-    device_model_init();
 }
 
 void device_init() {
     uint8_t devi = DEVICE_DOOR_NONE;
 
     if (first_start) {
-        first_start = false;
         memset(&door_device, 0, sizeof(door_device));
 
         /* None device - model_0 */
