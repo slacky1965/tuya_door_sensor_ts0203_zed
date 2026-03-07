@@ -1,10 +1,59 @@
-#include "tl_common.h"
-#include "platform.h"
+//#ifndef SRC_INCLUDE_APP_GPIO_H_
+//#define SRC_INCLUDE_APP_GPIO_H_
 
-#include "app_types.h"
+#pragma once
+
 #include "app_device.h"
 
-void app_gpio_init(int anaRes_init_en) {
+static inline void app_gpio_analog_resistance_init(void)
+{
+    analog_write (0x0e,  PULL_WAKEUP_SRC_PA0 |
+                        (PULL_WAKEUP_SRC_PA1<<2) |
+                        (PULL_WAKEUP_SRC_PA2<<4) |
+                        (PULL_WAKEUP_SRC_PA3<<6));
+
+    analog_write (0x0f,  PULL_WAKEUP_SRC_PA4 |
+                        (PULL_WAKEUP_SRC_PA5<<2) |
+                        (PULL_WAKEUP_SRC_PA6<<4) |
+                        (PULL_WAKEUP_SRC_PA7<<6));
+
+
+    analog_write (0x10,  PULL_WAKEUP_SRC_PB0 |
+                        (PULL_WAKEUP_SRC_PB1<<2) |
+                        (PULL_WAKEUP_SRC_PB2<<4) |
+                        (PULL_WAKEUP_SRC_PB3<<6));
+
+    analog_write (0x11,  PULL_WAKEUP_SRC_PB4 |
+                        (PULL_WAKEUP_SRC_PB5<<2) |
+                        (PULL_WAKEUP_SRC_PB6<<4) |
+                        (PULL_WAKEUP_SRC_PB7<<6));
+
+
+    analog_write (0x12,  PULL_WAKEUP_SRC_PC0 |
+                        (PULL_WAKEUP_SRC_PC1<<2) |
+                        (PULL_WAKEUP_SRC_PC2<<4) |
+                        (PULL_WAKEUP_SRC_PC3<<6));
+
+    analog_write (0x13,  PULL_WAKEUP_SRC_PC4 |
+                        (PULL_WAKEUP_SRC_PC5<<2) |
+                        (PULL_WAKEUP_SRC_PC6<<4) |
+                        (PULL_WAKEUP_SRC_PC7<<6));
+
+
+    analog_write (0x14,  PULL_WAKEUP_SRC_PD0 |
+                        (PULL_WAKEUP_SRC_PD1<<2) |
+                        (PULL_WAKEUP_SRC_PD2<<4) |
+                        (PULL_WAKEUP_SRC_PD3<<6));
+
+    analog_write (0x15,  PULL_WAKEUP_SRC_PD4 |
+                        (PULL_WAKEUP_SRC_PD5<<2) |
+                        (PULL_WAKEUP_SRC_PD6<<4) |
+                        (PULL_WAKEUP_SRC_PD7<<6));
+}
+
+
+
+static inline void app_gpio_init(int anaRes_init_en) {
 
     if (*(uint16_t*)(DEVICE_MODEL_CFG_ADDR) == DEVICE_MODEL_CFG_ID) {
         uint8_t model = *(uint8_t*)(DEVICE_MODEL_CFG_ADDR+2);
@@ -241,9 +290,8 @@ void app_gpio_init(int anaRes_init_en) {
     reg_gpio_pe_gpio = (PE0_FUNC==AS_GPIO ? BIT(0):0)   | (PE1_FUNC==AS_GPIO ? BIT(1):0)| (PE2_FUNC==AS_GPIO ? BIT(2):0)| (PE3_FUNC==AS_GPIO ? BIT(3):0);
 
 
-    if(anaRes_init_en)
-    {
-        gpio_analog_resistance_init();
+    if(anaRes_init_en) {
+        app_gpio_analog_resistance_init();
         if (device_model == DEVICE_MODEL_1) {
             // WakeUp src PB0-PB3
             analog_write (0x10, 0x04);
@@ -268,4 +316,4 @@ void app_gpio_init(int anaRes_init_en) {
     }
 }
 
-
+//#endif /* SRC_INCLUDE_APP_GPIO_H_ */

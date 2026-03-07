@@ -24,7 +24,7 @@
  *******************************************************************************************************/
 
 #include "zb_common.h"
-#include "app_device.h"
+#include "app_gpio.h"
 
 #define ID_BOOTABLE             0x544c4e4b
 
