@@ -9,8 +9,6 @@ device_model_t device_model = DEVICE_MODEL;
 device_door_t *device = &device_door[DEVICE_MODEL];
 bool model_in_flash = false;
 
-void app_gpio_init(int anaRes_init_en);
-
 static uint8_t checksum(uint8_t *data, uint16_t length) {
 
     uint8_t crc8 = 0;
