@@ -154,7 +154,7 @@ void user_app_init(void)
 
     dev_onoff_cmd_init();
 
-    DEBUG(DEBUG_GPIO_EN, "model_in_flash: %d\r\n", model_in_flash);
+//    DEBUG(DEBUG_GPIO_EN, "model_in_flash: %d\r\n", model_in_flash);
 
     DEBUG(DEBUG_GPIO_EN, "reg_gpio_pa_setting1: 0x%x\r\n", reg_gpio_pa_setting1);
     DEBUG(DEBUG_GPIO_EN, "reg_gpio_pa_setting2: 0x%x\r\n", reg_gpio_pa_setting2);
