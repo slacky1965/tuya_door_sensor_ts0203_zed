@@ -8,26 +8,26 @@ DOWNLOAD_PORT := COM3
 ifeq ($(PROJECT_MODEL),_model_1)
 	MANUF_CODE ?= 4742
 	IMAGE_TYPE ?= 514
-	PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_DOOR_1"
+	PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_MODEL_1"
 else
 	ifeq ($(PROJECT_MODEL),_model_2)
 		MANUF_CODE ?= 4417
 		IMAGE_TYPE ?= 54179
-		PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_DOOR_2"
+		PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_MODEL_2"
 	else
 		ifeq ($(PROJECT_MODEL),_model_3)
 			MANUF_CODE ?= 4417
 			IMAGE_TYPE ?= 54179
-			PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_DOOR_3"
+			PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_MODEL_3"
 		else
 			ifeq ($(PROJECT_MODEL),_model_4)
 				MANUF_CODE ?= 4417
 				IMAGE_TYPE ?= 54179
-				PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_DOOR_4"
+				PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_MODEL_4"
 			else
 				MANUF_CODE ?= 4417
 				IMAGE_TYPE ?= 54179
-				PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_DOOR_NONE"
+				PROJECT_DEF = "-DDEVICE_MODEL=DEVICE_MODEL_NONE"
 			endif
 		endif
 	endif
@@ -117,10 +117,13 @@ GCC_FLAGS += \
 -DBUILD_DATE="{8,$(ZCL_VERSION_FILE)}"
 endif
   
+DEBUG ?= "-DUART_PRINTF_MODE=ON"
+  
 GCC_FLAGS += \
 $(DEVICE_TYPE) \
 $(MCU_TYPE) \
-$(PROJECT_DEF)
+$(PROJECT_DEF) \
+$(DEBUG)
 
 OBJ_SRCS := 
 S_SRCS := 
@@ -174,12 +177,14 @@ all: pre-build main-build
 flash8000: $(BIN_FILE)
 	@python3 $(TOOLS_PATH)/TlsrPgm.py -p$(DOWNLOAD_PORT) -z11 -a 100 -s -m we 0x8000 $(BIN_FILE)
 
-flash0: $(BIN_FILE)
+flash0:
 	@python3 $(TOOLS_PATH)/TlsrPgm.py -p$(DOWNLOAD_PORT) -z11 -a 100 -s -m we 0 $(BIN_FILE)
 
 erase-flash:
 	@python3 $(TOOLS_PATH)/TlsrPgm.py -p$(DOWNLOAD_PORT) -z11 -a 100 -s ea
 
+erase-model:
+	@python3 $(TOOLS_PATH)/TlsrPgm.py -p$(DOWNLOAD_PORT) -z11 -a 100 -s es 0x75000 0x1000
 
 flash-bootloader:
 	@python3 $(TOOLS_PATH)/TlsrPgm.py -p$(DOWNLOAD_PORT) -z11 -a 100 -s -m we 0 $(BOOTLOADER)

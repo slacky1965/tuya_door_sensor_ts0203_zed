@@ -36,9 +36,8 @@ void door_handler() {
     zcl_onOffSwitchCfgAttr_t *onoffCfgAttrs = zcl_onOffSwitchCfgAttrGet();
     uint8_t cmd_onoff;
 
-    if (zb_getLocalShortAddr() >= 0xFFF8) {
-        return;
-    }
+    if (zb_getLocalShortAddr() >= 0xFFF8) return;
+    if (!zb_isDeviceJoinedNwk()) zb_rejoinReq(zb_apsChannelMaskGet(), g_bdbAttrs.scanDuration);
 
     if (drv_gpio_read(device->door_gpio.gpio)) {
         close_count = 0;

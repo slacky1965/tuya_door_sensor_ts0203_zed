@@ -87,7 +87,7 @@ static ev_timer_event_t *identifyTimerEvt = NULL;
  */
 void app_zclProcessIncomingMsg(zclIncoming_t *pInHdlrMsg)
 {
-	DEBUG(DEBUG_ZCL_CB_EN, "app_zclProcessIncomingMsg\n");
+	DEBUG(DEBUG_ZCL_CB_EN, "app_zclProcessIncomingMsg\r\n");
 
 	uint16_t cluster = pInHdlrMsg->msg->indInfo.cluster_id;
 	uint8_t endPoint = pInHdlrMsg->msg->indInfo.dst_ep;
@@ -137,7 +137,7 @@ void app_zclProcessIncomingMsg(zclIncoming_t *pInHdlrMsg)
  */
 static void app_zclReadRspCmd(uint16_t clusterId, zclReadRspCmd_t *pReadRspCmd)
 {
-    DEBUG(DEBUG_ZCL_CB_EN, "app_zclReadRspCmd\n");
+    DEBUG(DEBUG_ZCL_CB_EN, "app_zclReadRspCmd\r\n");
 
 }
 #endif	/* ZCL_READ */
@@ -154,7 +154,7 @@ static void app_zclReadRspCmd(uint16_t clusterId, zclReadRspCmd_t *pReadRspCmd)
  */
 static void app_zclWriteRspCmd(uint16_t clusterId, zclWriteRspCmd_t *pWriteRspCmd)
 {
-    DEBUG(DEBUG_ZCL_CB_EN, "app_zclWriteRspCmd\n");
+    DEBUG(DEBUG_ZCL_CB_EN, "app_zclWriteRspCmd\r\n");
 
 }
 
@@ -198,8 +198,9 @@ static void app_zclWriteReqCmd(uint8_t endPoint, uint16_t clusterId, zclWriteCmd
             } else if (attr[i].attrID == ZCL_ATTRID_DOOR_SENSOR_MODEL) {
                 uint8_t model = attr[i].attrData[0];
                 DEBUG(DEBUG_ZCL_CB_EN, "model: 0x%02x, ep: %d\r\n", model, endPoint);
-                if (model >= DEVICE_DOOR_NONE && model < DEVICE_DOOR_MAX) {
+                if (model >= DEVICE_MODEL_NONE && model < DEVICE_MODEL_MAX) {
                     device_model_save(model);
+                    TL_ZB_TIMER_SCHEDULE(delayedMcuResetCb, NULL, TIMEOUT_1SEC);
                 }
             }
         }
@@ -283,7 +284,7 @@ static void app_zclCfgReportRspCmd(uint16_t clusterId, zclCfgReportRspCmd_t *pCf
  */
 static void app_zclReportCmd(uint16_t clusterId, zclReportCmd_t *pReportCmd)
 {
-    DEBUG(DEBUG_ZCL_CB_EN, "app_zclReportCmd\n");
+    DEBUG(DEBUG_ZCL_CB_EN, "app_zclReportCmd\r\n");
 
 }
 #endif	/* ZCL_REPORT */
