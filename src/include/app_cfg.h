@@ -63,7 +63,9 @@
 #include "version_cfg.h"
 
 /* Debug mode config */
+#ifndef UART_PRINTF_MODE
 #define	UART_PRINTF_MODE                ON
+#endif
 #define USB_PRINTF_MODE         		OFF
 
 #define DEBUG_BUTTON_EN                 ON
@@ -73,8 +75,9 @@
 #define DEBUG_OTA_EN                    OFF
 #define DEBUG_STA_STATUS_EN             OFF
 #define DEBUG_ONOFF_EN                  ON
-#define DEBUG_DOOR_EN                   OFF
-#define DEBUG_ZCL_CB_EN                 OFF
+#define DEBUG_DOOR_EN                   ON
+#define DEBUG_ZCL_CB_EN                 ON
+#define DEBUG_GPIO_EN                   ON
 
 #if UART_PRINTF_MODE
 #define DEBUG_INFO_TX_PIN       GPIO_PB1    //fake gpio for 32pin's chip

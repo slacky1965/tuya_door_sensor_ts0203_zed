@@ -7,7 +7,7 @@ static void buttonKeepPressed(u8 btNum) {
     button.state = APP_FACTORY_NEW_DOING;
     button.ctn = 0;
 
-    if(btNum == VK_SW1 && device_door_model != DEVICE_DOOR_NONE) {
+    if(btNum == VK_SW1 && device->device_en) {
         DEBUG(DEBUG_BUTTON_EN, "The button was keep pressed for 5 seconds\r\n");
         zb_factoryReset();
         g_appCtx.net_steer_start = true;

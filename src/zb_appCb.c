@@ -147,7 +147,7 @@ void zb_bdbInitCb(u8 status, u8 joinedNetwork)
 #ifdef ZCL_POLL_CTRL
             app_zclCheckInStart();
 #endif
-        } else {
+        } else /*if (g_appCtx.net_steer_start)*/ {
             u16 jitter = 0;
             do {
                 jitter = zb_random() % 0x0fff;
@@ -223,7 +223,7 @@ void zb_bdbCommissioningCb(u8 status, void *arg)
     case BDB_COMMISSION_STA_NO_NETWORK:
     case BDB_COMMISSION_STA_TCLK_EX_FAILURE:
     case BDB_COMMISSION_STA_TARGET_FAILURE:
-        {
+        if (g_appCtx.net_steer_start) {
             u16 jitter = 0;
             do {
                 jitter = zb_random() % 0x0fff;
@@ -354,7 +354,7 @@ void app_leaveCnfHandler(nlme_leave_cnf_t *pLeaveCnf)
         }
         steerTimerEvt = TL_ZB_TIMER_SCHEDULE(app_bdbNetworkSteerStart, NULL, jitter);
 
-        if (!g_appCtx.net_steer_start) light_blink_start(90, 100, 1000);
+        //if (!g_appCtx.net_steer_start) light_blink_start(90, 100, 1000);
     }
 }
 

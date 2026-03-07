@@ -15,7 +15,7 @@ void start_message() {
 #if UART_PRINTF_MODE
     const uint8_t version[] = ZCL_BASIC_SW_BUILD_ID;
     DEBUG(UART_PRINTF_MODE, "Firmware version: %s\r\n", version+1);
-    DEBUG(UART_PRINTF_MODE, "Device model is 'model_%d'\r\n", device_door_model);
+    DEBUG(UART_PRINTF_MODE, "Device model is 'model_%d'\r\n", device_model);
 #endif
 }
 

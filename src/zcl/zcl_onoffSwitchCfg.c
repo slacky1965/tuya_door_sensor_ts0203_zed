@@ -108,7 +108,7 @@ nv_sts_t zcl_onOffCfgAttr_restore(void) {
         g_zcl_onOffSwitchCfgAttrs.off_cmd_off = DEFAULT_OFF_CMD_OFF;
     }
 
-    g_zcl_onOffSwitchCfgAttrs.model = device_door_model;
+    g_zcl_onOffSwitchCfgAttrs.model = device_model;
 
 #else
     st = NV_ENABLE_PROTECT_ERROR;
