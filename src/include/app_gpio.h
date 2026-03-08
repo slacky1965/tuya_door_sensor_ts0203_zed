@@ -60,6 +60,9 @@ static inline void app_gpio_init(int anaRes_init_en) {
         if (model >= DEVICE_MODEL_NONE && model < DEVICE_MODEL_MAX) {
             model_in_flash = true;
             device_model = model;
+        } else {
+            model_in_flash = false;
+            device_model = DEVICE_MODEL;
         }
     } else {
         model_in_flash = false;
