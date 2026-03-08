@@ -35,9 +35,11 @@ static void device_model_init() {
         device_gpio_init(&device->button_gpio);
     } else {
         device->device_en = ON;
-//        device_gpio_init(&device->button_gpio);
-//        device_gpio_init(&device->led_gpio);
-//        device_gpio_init(&device->door_gpio);
+        if (!model_in_flash) {
+            device_gpio_init(&device->button_gpio);
+            device_gpio_init(&device->led_gpio);
+            device_gpio_init(&device->door_gpio);
+        }
 #if UART_PRINTF_MODE
         device_gpio_init(&device->debug_gpio);
         gpio_write(device->debug_gpio.gpio, 1);
