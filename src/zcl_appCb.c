@@ -87,7 +87,7 @@ static ev_timer_event_t *identifyTimerEvt = NULL;
  */
 void app_zclProcessIncomingMsg(zclIncoming_t *pInHdlrMsg)
 {
-	DEBUG(DEBUG_ZCL_CB_EN, "app_zclProcessIncomingMsg\r\n");
+	APP_DEBUG(DEBUG_ZCL_CB_EN, "app_zclProcessIncomingMsg\r\n");
 
 	uint16_t cluster = pInHdlrMsg->msg->indInfo.cluster_id;
 	uint8_t endPoint = pInHdlrMsg->msg->indInfo.dst_ep;
@@ -137,7 +137,7 @@ void app_zclProcessIncomingMsg(zclIncoming_t *pInHdlrMsg)
  */
 static void app_zclReadRspCmd(uint16_t clusterId, zclReadRspCmd_t *pReadRspCmd)
 {
-    DEBUG(DEBUG_ZCL_CB_EN, "app_zclReadRspCmd\r\n");
+    APP_DEBUG(DEBUG_ZCL_CB_EN, "app_zclReadRspCmd\r\n");
 
 }
 #endif	/* ZCL_READ */
@@ -154,7 +154,7 @@ static void app_zclReadRspCmd(uint16_t clusterId, zclReadRspCmd_t *pReadRspCmd)
  */
 static void app_zclWriteRspCmd(uint16_t clusterId, zclWriteRspCmd_t *pWriteRspCmd)
 {
-    DEBUG(DEBUG_ZCL_CB_EN, "app_zclWriteRspCmd\r\n");
+    APP_DEBUG(DEBUG_ZCL_CB_EN, "app_zclWriteRspCmd\r\n");
 
 }
 
@@ -172,32 +172,32 @@ static void app_zclWriteReqCmd(uint8_t endPoint, uint16_t clusterId, zclWriteCmd
     zclWriteRec_t *attr = pWriteReqCmd->attrList;
 //    bool save = false;
 
-    DEBUG(DEBUG_ZCL_CB_EN, "app_zclWriteReqCmd\r\n");
+    APP_DEBUG(DEBUG_ZCL_CB_EN, "app_zclWriteReqCmd\r\n");
 
     zcl_onOffSwitchCfgAttr_t *onoffCfgAttrs = zcl_onOffSwitchCfgAttrGet();
 
     if (clusterId == ZCL_CLUSTER_GEN_ON_OFF_SWITCH_CONFIG) {
         for (u8 i = 0; i < numAttr; i++) {
             if (attr[i].attrID == ZCL_ATTRID_SWITCH_ACTION) {
-                DEBUG(DEBUG_ZCL_CB_EN, "Switch action: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
+                APP_DEBUG(DEBUG_ZCL_CB_EN, "Switch action: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
                 zcl_onOffCfgAttr_save();
             } else if (attr[i].attrID == ZCL_ATTRID_SWITCH_DELAY_ON) {
-                DEBUG(DEBUG_ZCL_CB_EN, "Delay on: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
+                APP_DEBUG(DEBUG_ZCL_CB_EN, "Delay on: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
                 if (attr[i].attrData[0] > DELAY_ON_MAX) onoffCfgAttrs->delay_on = DELAY_ON_MAX;
                 zcl_onOffCfgAttr_save();
             } else if (attr[i].attrID == ZCL_ATTRID_SWITCH_DELAY_OFF) {
-                DEBUG(DEBUG_ZCL_CB_EN, "Delay off: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
+                APP_DEBUG(DEBUG_ZCL_CB_EN, "Delay off: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
                 if (attr[i].attrData[0] > DELAY_OFF_MAX) onoffCfgAttrs->delay_off = DELAY_OFF_MAX;
                 zcl_onOffCfgAttr_save();
             } else if (attr[i].attrID == ZCL_ATTRID_ON_CMD_OFF) {
-                DEBUG(DEBUG_ZCL_CB_EN, "On command is off: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
+                APP_DEBUG(DEBUG_ZCL_CB_EN, "On command is off: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
                 zcl_onOffCfgAttr_save();
             } else if (attr[i].attrID == ZCL_ATTRID_OFF_CMD_OFF) {
-                DEBUG(DEBUG_ZCL_CB_EN, "Off command is off: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
+                APP_DEBUG(DEBUG_ZCL_CB_EN, "Off command is off: %d by endPoint: %d\r\n", attr[i].attrData[0], endPoint);
                 zcl_onOffCfgAttr_save();
             } else if (attr[i].attrID == ZCL_ATTRID_DOOR_SENSOR_MODEL) {
                 uint8_t model = attr[i].attrData[0];
-                DEBUG(DEBUG_ZCL_CB_EN, "model: 0x%02x, ep: %d\r\n", model, endPoint);
+                APP_DEBUG(DEBUG_ZCL_CB_EN, "model: 0x%02x, ep: %d\r\n", model, endPoint);
                 if (model >= DEVICE_MODEL_NONE && model < DEVICE_MODEL_MAX) {
                     device_model_save(model);
                     TL_ZB_TIMER_SCHEDULE(delayedMcuResetCb, NULL, TIMEOUT_1SEC);
@@ -233,9 +233,9 @@ static void app_zclWriteReqCmd(uint8_t endPoint, uint16_t clusterId, zclWriteCmd
  */
 static void app_zclDfltRspCmd(uint16_t clusterId, zclDefaultRspCmd_t *pDftRspCmd, uint8_t seq_num)
 {
-    DEBUG(DEBUG_ZCL_CB_EN, "app_zclDfltRspCmd\r\n");
+    APP_DEBUG(DEBUG_ZCL_CB_EN, "app_zclDfltRspCmd\r\n");
 //    unsigned char r = irq_disable();
-//    DEBUG(DEBUG_ZCL_CB_EN, "cmdID: %d, status: %d, seq_num: %d\r\n", pDftRspCmd->commandID, pDftRspCmd->statusCode, seq_num);
+//    APP_DEBUG(DEBUG_ZCL_CB_EN, "cmdID: %d, status: %d, seq_num: %d\r\n", pDftRspCmd->commandID, pDftRspCmd->statusCode, seq_num);
 //    irq_restore(r);
 
 }
@@ -253,7 +253,7 @@ static void app_zclDfltRspCmd(uint16_t clusterId, zclDefaultRspCmd_t *pDftRspCmd
  */
 static void app_zclCfgReportCmd(uint8_t endPoint, uint16_t clusterId, zclCfgReportCmd_t *pCfgReportCmd)
 {
-    DEBUG(DEBUG_ZCL_CB_EN, "app_zclCfgReportCmd\r\n");
+    APP_DEBUG(DEBUG_ZCL_CB_EN, "app_zclCfgReportCmd\r\n");
 //    reportAttrTimerStop();
 }
 
@@ -268,7 +268,7 @@ static void app_zclCfgReportCmd(uint8_t endPoint, uint16_t clusterId, zclCfgRepo
  */
 static void app_zclCfgReportRspCmd(uint16_t clusterId, zclCfgReportRspCmd_t *pCfgReportRspCmd)
 {
-    DEBUG(DEBUG_ZCL_CB_EN, "app_zclCfgReportRspCmd\r\n");
+    APP_DEBUG(DEBUG_ZCL_CB_EN, "app_zclCfgReportRspCmd\r\n");
 
 }
 
@@ -283,7 +283,7 @@ static void app_zclCfgReportRspCmd(uint16_t clusterId, zclCfgReportRspCmd_t *pCf
  */
 static void app_zclReportCmd(uint16_t clusterId, zclReportCmd_t *pReportCmd)
 {
-    DEBUG(DEBUG_ZCL_CB_EN, "app_zclReportCmd\r\n");
+    APP_DEBUG(DEBUG_ZCL_CB_EN, "app_zclReportCmd\r\n");
 
 }
 #endif	/* ZCL_REPORT */
@@ -465,7 +465,7 @@ status_t app_identifyCb(zclIncomingAddrInfo_t *pAddrInfo, uint8_t cmdId, void *c
  */
 static void door_zclIasZoneEnrollRspCmdHandler(zoneEnrollRsp_t *pZoneEnrollRsp, uint8_t endpoint) {
 
-    DEBUG(DEBUG_ZCL_CB_EN, "zclIasZoneEnrollRspCmdHandler endpoint: %d, code: %d zone_id: %d\r\n", endpoint, pZoneEnrollRsp->code, pZoneEnrollRsp->zoneId);
+    APP_DEBUG(DEBUG_ZCL_CB_EN, "zclIasZoneEnrollRspCmdHandler endpoint: %d, code: %d zone_id: %d\r\n", endpoint, pZoneEnrollRsp->code, pZoneEnrollRsp->zoneId);
     if (pZoneEnrollRsp->zoneId != ZCL_ZONE_ID_INVALID) {
         u8 zoneState;
         zoneState = ZONE_STATE_ENROLLED;
@@ -486,7 +486,7 @@ static void door_zclIasZoneEnrollRspCmdHandler(zoneEnrollRsp_t *pZoneEnrollRsp, 
  */
 static status_t door_zclIasZoneInitNormalOperationModeCmdHandler(void) {
 
-    DEBUG(DEBUG_ZCL_CB_EN, "zclIasZoneInitNormalOperationModeCmdHandler\r\n");
+    APP_DEBUG(DEBUG_ZCL_CB_EN, "zclIasZoneInitNormalOperationModeCmdHandler\r\n");
     u8 status = ZCL_STA_FAILURE;
 
     return status;
@@ -503,7 +503,7 @@ static status_t door_zclIasZoneInitNormalOperationModeCmdHandler(void) {
  */
 static status_t door_zclIasZoneInitTestModeCmdHandler(zoneInitTestMode_t *pZoneInitTestMode) {
 
-    DEBUG(DEBUG_ZCL_CB_EN, "zclIasZoneInitNormalOperationModeCmdHandler\r\n");
+    APP_DEBUG(DEBUG_ZCL_CB_EN, "zclIasZoneInitNormalOperationModeCmdHandler\r\n");
     u8 status = ZCL_STA_FAILURE;
 
     return status;
@@ -575,7 +575,7 @@ status_t app_powerCfgCb(zclIncomingAddrInfo_t *pAddrInfo, uint8_t cmdId, void *c
  */
 static void app_zclAddGroupRspCmdHandler(zcl_addGroupRsp_t *pAddGroupRsp)
 {
-    DEBUG(DEBUG_ZCL_CB_EN, "app_zclAddGroupRspCmdHandler\r\n");
+    APP_DEBUG(DEBUG_ZCL_CB_EN, "app_zclAddGroupRspCmdHandler\r\n");
 }
 
 /*********************************************************************
@@ -589,7 +589,7 @@ static void app_zclAddGroupRspCmdHandler(zcl_addGroupRsp_t *pAddGroupRsp)
  */
 static void app_zclViewGroupRspCmdHandler(zcl_viewGroupRsp_t *pViewGroupRsp)
 {
-    DEBUG(DEBUG_ZCL_CB_EN, "app_zclViewGroupRspCmdHandler\r\n");
+    APP_DEBUG(DEBUG_ZCL_CB_EN, "app_zclViewGroupRspCmdHandler\r\n");
 }
 
 /*********************************************************************
@@ -603,7 +603,7 @@ static void app_zclViewGroupRspCmdHandler(zcl_viewGroupRsp_t *pViewGroupRsp)
  */
 static void app_zclRemoveGroupRspCmdHandler(zcl_removeGroupRsp_t *pRemoveGroupRsp)
 {
-    DEBUG(DEBUG_ZCL_CB_EN, "app_zclRemoveGroupRspCmdHandler\r\n");
+    APP_DEBUG(DEBUG_ZCL_CB_EN, "app_zclRemoveGroupRspCmdHandler\r\n");
 }
 
 /*********************************************************************
@@ -617,7 +617,7 @@ static void app_zclRemoveGroupRspCmdHandler(zcl_removeGroupRsp_t *pRemoveGroupRs
  */
 static void app_zclGetGroupMembershipRspCmdHandler(zcl_getGroupMembershipRsp_t *pGetGroupMembershipRsp)
 {
-    DEBUG(DEBUG_ZCL_CB_EN, "app_zclGetGroupMembershipRspCmdHandler\r\n");
+    APP_DEBUG(DEBUG_ZCL_CB_EN, "app_zclGetGroupMembershipRspCmdHandler\r\n");
 }
 
 /*********************************************************************
@@ -633,7 +633,7 @@ static void app_zclGetGroupMembershipRspCmdHandler(zcl_getGroupMembershipRsp_t *
  */
 status_t app_groupCb(zclIncomingAddrInfo_t *pAddrInfo, uint8_t cmdId, void *cmdPayload)
 {
-    DEBUG(DEBUG_ZCL_CB_EN, "app_groupCb\r\n");
+    APP_DEBUG(DEBUG_ZCL_CB_EN, "app_groupCb\r\n");
 	if(pAddrInfo->dstEp == APP_ENDPOINT1){
 		if(pAddrInfo->dirCluster == ZCL_FRAME_SERVER_CLIENT_DIR){
 			switch(cmdId){

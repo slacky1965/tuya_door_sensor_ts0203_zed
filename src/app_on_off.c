@@ -11,15 +11,15 @@ static status_t cmdOnOffSend(uint8_t ep, epInfo_t *dstEpInfo, uint8_t command) {
 
     switch(command) {
         case ZCL_CMD_ONOFF_OFF:
-            DEBUG(DEBUG_ONOFF_EN, "OnOff command: off\r\n");
+            APP_DEBUG(DEBUG_ONOFF_EN, "OnOff command: off\r\n");
             st = zcl_onOff_offCmd(ep, dstEpInfo, FALSE);
             break;
         case ZCL_CMD_ONOFF_ON:
-            DEBUG(DEBUG_ONOFF_EN, "OnOff command: on\r\n");
+            APP_DEBUG(DEBUG_ONOFF_EN, "OnOff command: on\r\n");
             st = zcl_onOff_onCmd(ep, dstEpInfo, FALSE);
             break;
         case ZCL_CMD_ONOFF_TOGGLE:
-            DEBUG(DEBUG_ONOFF_EN, "OnOff command: toggle\r\n");
+            APP_DEBUG(DEBUG_ONOFF_EN, "OnOff command: toggle\r\n");
             st = zcl_onOff_toggleCmd(ep, dstEpInfo, FALSE);
             break;
         default:

@@ -22,9 +22,9 @@ int32_t batteryCb(void *arg) {
     uint8_t voltage = (uint8_t)(voltage_raw/100);
     uint8_t level = get_battery_level(voltage_raw);
 
-    DEBUG(DEBUG_BATTERY_EN, "Voltage_raw: %d\r\n", voltage_raw);
-    DEBUG(DEBUG_BATTERY_EN, "Voltage:     %d\r\n", voltage);
-    DEBUG(DEBUG_BATTERY_EN, "Level:       %d\r\n", level);
+    APP_DEBUG(DEBUG_BATTERY_EN, "Voltage_raw: %d\r\n", voltage_raw);
+    APP_DEBUG(DEBUG_BATTERY_EN, "Voltage:     %d\r\n", voltage);
+    APP_DEBUG(DEBUG_BATTERY_EN, "Level:       %d\r\n", level);
 
     zcl_setAttrVal(APP_ENDPOINT1, ZCL_CLUSTER_GEN_POWER_CFG, ZCL_ATTRID_BATTERY_VOLTAGE, &voltage);
     zcl_setAttrVal(APP_ENDPOINT1, ZCL_CLUSTER_GEN_POWER_CFG, ZCL_ATTRID_BATTERY_PERCENTAGE_REMAINING, &level);
