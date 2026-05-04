@@ -49,10 +49,7 @@ int32_t set_pollRateCb(void *args) {
 
     APP_DEBUG(UART_PRINTF_MODE, "set_pollRateCb()\r\n");
 
-    uint32_t poll_rate = POLL_RATE * 6;
-
-    app_deferredCmdPollRate(poll_rate);
-    zb_setPollRate(poll_rate);
+    zb_setPollRate(POLL_RATE * 6);
 
     g_appCtx.timerSetPollRateEvt = NULL;
     return -1;
@@ -60,10 +57,7 @@ int32_t set_pollRateCb(void *args) {
 
 void app_setPollRate(uint32_t ms) {
 
-    uint32_t poll_rate = POLL_RATE * 3;
-
-    app_deferredCmdPollRate(poll_rate);
-    zb_setPollRate(poll_rate);
+    zb_setPollRate(POLL_RATE * 3);
     if (g_appCtx.timerSetPollRateEvt) {
         TL_ZB_TIMER_CANCEL(&g_appCtx.timerSetPollRateEvt);
     }

@@ -1,27 +1,25 @@
 #include "app_main.h"
 
 typedef struct {
-    ev_timer_event_t *timerPollRateEvt;
     bool     deferred_cmd;
     uint8_t  cmd;
     uint8_t  cnt;
     uint32_t timeout;
-    uint32_t poll_rate;
 } app_deferred_cmd_t;
 
 static bool onoff_first_start = true;
 static app_deferred_cmd_t deferred_cmd = {
-    .timerPollRateEvt = NULL,
     .deferred_cmd = false,
     .cnt = 0,
 };
 
-static int32_t restore_pollRateCb(void *args) {
+static int32_t deferred_cmdCb(void *args) {
 
-    zb_setPollRate(deferred_cmd.poll_rate);
+    if (!deferred_cmd.deferred_cmd) {
+        return -1;
+    }
 
-    deferred_cmd.timerPollRateEvt = NULL;
-    return -1;
+    return 0;
 }
 
 static status_t cmdOnOffSend(uint8_t ep, epInfo_t *dstEpInfo, uint8_t command) {
@@ -62,15 +60,12 @@ void cmdOnOff(uint8_t command) {
     if (command == ZCL_CMD_ONOFF_OFF && attrOnOffCfg->off_cmd_off) return;
     if (command == ZCL_CMD_ONOFF_ON && attrOnOffCfg->on_cmd_off) return;
 
-    if (!zb_isDeviceJoinedNwk() && !zb_isDeviceFactoryNew()) {
+    if (1/*!zb_isDeviceJoinedNwk() && !zb_isDeviceFactoryNew()*/) {
         if (!deferred_cmd.deferred_cmd) {
             deferred_cmd.cmd = command;
             deferred_cmd.cnt = 0;
             deferred_cmd.deferred_cmd = true;
-            if (!deferred_cmd.timerPollRateEvt) {
-                zb_setPollRate(POLL_RATE);
-                deferred_cmd.timerPollRateEvt = TL_ZB_TIMER_SCHEDULE(restore_pollRateCb, NULL, TIMEOUT_4SEC);
-            }
+            TL_ZB_TIMER_SCHEDULE(deferred_cmdCb, NULL, TIMEOUT_1SEC);
         }
         deferred_cmd.timeout = clock_time();
         return;
@@ -179,6 +174,3 @@ void app_deferredCmdOnOff() {
     }
 }
 
-void app_deferredCmdPollRate(uint32_t poll_rate) {
-    deferred_cmd.poll_rate = poll_rate;
-}
