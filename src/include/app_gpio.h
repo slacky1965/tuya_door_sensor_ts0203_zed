@@ -91,6 +91,7 @@ static inline void app_gpio_init(int anaRes_init_en) {
             //            reg_gpio_pd_setting1: 0xFFFF00
             //            reg_gpio_pd_setting2: 0x7BFF00
 
+            //PA group
             reg_gpio_pa_setting1 = 0xFFFF80;
             reg_gpio_pa_setting2 = 0x7FFF00;
 
@@ -109,19 +110,16 @@ static inline void app_gpio_init(int anaRes_init_en) {
             //PC group
             //ie
             analog_write(areg_gpio_pc_ie, 0xD7);
-
             //oen
             reg_gpio_pc_oen = 0xD7;
-
             //dataO
             if (first_start) reg_gpio_pc_out = 0x20;
-            else reg_gpio_pc_out = led_status()?(0x20 | BIT(3)):(0x20 & ~BIT(3));
-
+            else reg_gpio_pc_out = led_status()?(0x20 | BIT(3)):0x20;
             //ds
             analog_write(areg_gpio_pc_ds, 0xFF);
-
             reg_gpio_pc_gpio = 0xFF;
 
+            //PD group
             reg_gpio_pd_setting1 = 0xFFFF00;
             reg_gpio_pd_setting2 = 0x7BFF00;
 
@@ -172,6 +170,7 @@ static inline void app_gpio_init(int anaRes_init_en) {
             //            reg_gpio_pd_setting1: 0xFFFF00
             //            reg_gpio_pd_setting2: 0x7BFF00
 
+            //PA group
             reg_gpio_pa_setting1 = 0xFFFF80;
             reg_gpio_pa_setting2 = 0x7FFF00;
 
@@ -194,11 +193,12 @@ static inline void app_gpio_init(int anaRes_init_en) {
             reg_gpio_pc_oen = 0xDB;
             //dataO
             if (first_start) reg_gpio_pc_out = 0x20;
-            else reg_gpio_pc_out = led_status()?(0x20 | BIT(2)):(0x20 & ~BIT(2));
+            else reg_gpio_pc_out = led_status()?(0x20 | BIT(2)):0x20;
             //ds
             analog_write(areg_gpio_pc_ds, 0xFF);
             reg_gpio_pc_gpio = 0xFF;
 
+            //PD group
             reg_gpio_pd_setting1 = 0xFFFF00;
             reg_gpio_pd_setting2 = 0x7BFF00;
 
@@ -252,6 +252,7 @@ static inline void app_gpio_init(int anaRes_init_en) {
             //        reg_gpio_pd_setting1: 0xFFFF88
             //        reg_gpio_pd_setting2: 0xFBFF00
 
+            //PA group
             reg_gpio_pa_setting1 = 0xFFFF80;
             reg_gpio_pa_setting2 = 0x7FFF00;
 
@@ -262,7 +263,7 @@ static inline void app_gpio_init(int anaRes_init_en) {
             reg_gpio_pb_oen = 0xED; // bit 7 - PB7 ... 0 - PB0, 0 - en, 1 - dis
             //data out
             if (first_start) reg_gpio_pb_out = 0x02; // bit 7 - PB7 ... 0 - PB0, 1 - en, 0, dis
-            else reg_gpio_pb_out = led_status()?(0x02 | BIT(4)):(0x02 & ~BIT(4));
+            else reg_gpio_pb_out = led_status()?(0x02 | BIT(4)):0x02;
             //ds
             analog_write(areg_gpio_pb_ds, 0xFF);
             //func as GPIO
@@ -279,6 +280,7 @@ static inline void app_gpio_init(int anaRes_init_en) {
             analog_write(areg_gpio_pc_ds, 0xFF);
             reg_gpio_pc_gpio = 0xFF;
 
+            //PD group
             reg_gpio_pd_setting1 = 0xFFFF88;
             reg_gpio_pd_setting2 = 0xFBFF00;
 
@@ -335,6 +337,7 @@ static inline void app_gpio_init(int anaRes_init_en) {
             //            reg_gpio_pd_setting1: 0xFF0000
             //            reg_gpio_pd_setting2: 0xFFFF00
 
+            //PA group
             reg_gpio_pa_setting1 = 0xFF8080;
             reg_gpio_pa_setting2 = 0x7FFF00;
 
@@ -345,7 +348,7 @@ static inline void app_gpio_init(int anaRes_init_en) {
             reg_gpio_pb_oen = 0xED; // bit 7 - PB7 ... 0 - PB0, 0 - en, 1 - dis
             //data out
             if (first_start) reg_gpio_pb_out = 0x12; // bit 7 - PB7 ... 0 - PB0, 1 - en, 0, dis
-            else reg_gpio_pb_out = led_status()?(0x12 & ~BIT(4)):(0x12 | BIT(4));
+            else reg_gpio_pb_out = led_status()?(0x12 & ~BIT(4)):0x12;
             //ds
             analog_write(areg_gpio_pb_ds, 0xFF);
             //func as GPIO
@@ -354,18 +357,15 @@ static inline void app_gpio_init(int anaRes_init_en) {
             //PC group
             //ie
             analog_write(areg_gpio_pc_ie, 0x02);
-
             //oen
             reg_gpio_pc_oen = 0xDF;
-
             //dataO
             reg_gpio_pc_out = 0x20;
-
             //ds
             analog_write(areg_gpio_pc_ds, 0xFF);
-
             reg_gpio_pc_gpio = 0xFF;
 
+            //PD group
             reg_gpio_pd_setting1 = 0xFF0000;
             reg_gpio_pd_setting2 = 0xFFFF00;
 

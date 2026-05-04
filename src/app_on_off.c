@@ -1,7 +1,18 @@
 #include "app_main.h"
 
+typedef struct {
+    bool     deferred_cmd;
+    uint8_t  cmd;
+    uint8_t  cnt;
+    uint32_t timeout;
+} app_deferred_cmd_t;
+
 static bool onoff_first_start = true;
-ev_timer_event_t *timerOnOffCmdEvt = NULL;
+static app_deferred_cmd_t deferred_cmd = {
+    .deferred_cmd = false,
+    .cnt = 0,
+};
+//ev_timer_event_t *timerOnOffCmdEvt = NULL;
 
 static status_t cmdOnOffSend(uint8_t ep, epInfo_t *dstEpInfo, uint8_t command) {
 
@@ -40,6 +51,18 @@ void cmdOnOff(uint8_t command) {
 
     if (command == ZCL_CMD_ONOFF_OFF && attrOnOffCfg->off_cmd_off) return;
     if (command == ZCL_CMD_ONOFF_ON && attrOnOffCfg->on_cmd_off) return;
+
+    if (!zb_isDeviceJoinedNwk() && !zb_isDeviceFactoryNew()) {
+        if (!deferred_cmd.deferred_cmd) {
+            deferred_cmd.cmd = command;
+            deferred_cmd.cnt = 0;
+            deferred_cmd.deferred_cmd = true;
+        }
+        deferred_cmd.timeout = clock_time();
+        return;
+    }
+
+    deferred_cmd.deferred_cmd = false;
 
     status_t st;
     epInfo_t dstEpInfo;
@@ -134,3 +157,10 @@ int32_t app_repeatCmdOnOff(void *args) {
     return -1;
 }
 
+void app_deferredCmdOnOff() {
+    if (deferred_cmd.deferred_cmd && clock_time_exceed(deferred_cmd.timeout, TIMEOUT_TICK_1SEC)) {
+        APP_DEBUG(DEBUG_REPEAT_EN, "app_deferredCmdOnOff(). cnt: %d\r\n", deferred_cmd.cnt);
+        cmdOnOff(deferred_cmd.cmd);
+        if (deferred_cmd.cnt++ == 2) deferred_cmd.deferred_cmd = false;
+    }
+}

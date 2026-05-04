@@ -130,6 +130,7 @@ void door_handler() {
             }
         }
     }
+    app_deferredCmdOnOff();
 }
 
 
