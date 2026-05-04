@@ -60,7 +60,7 @@ void cmdOnOff(uint8_t command) {
     if (command == ZCL_CMD_ONOFF_OFF && attrOnOffCfg->off_cmd_off) return;
     if (command == ZCL_CMD_ONOFF_ON && attrOnOffCfg->on_cmd_off) return;
 
-    if (1/*!zb_isDeviceJoinedNwk() && !zb_isDeviceFactoryNew()*/) {
+    if (!zb_isDeviceJoinedNwk() && !zb_isDeviceFactoryNew()) {
         if (!deferred_cmd.deferred_cmd) {
             deferred_cmd.cmd = command;
             deferred_cmd.cnt = 0;
