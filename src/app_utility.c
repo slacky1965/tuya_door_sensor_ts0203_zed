@@ -57,7 +57,7 @@ int32_t set_pollRateCb(void *args) {
 
 void app_setPollRate(uint32_t ms) {
 
-    zb_setPollRate(POLL_RATE * 3);
+    zb_setPollRate(POLL_RATE * 1);
     if (g_appCtx.timerSetPollRateEvt) {
         TL_ZB_TIMER_CANCEL(&g_appCtx.timerSetPollRateEvt);
     }
