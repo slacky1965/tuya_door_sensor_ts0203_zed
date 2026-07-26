@@ -2,6 +2,9 @@
 
 <img src="doc/images/ae.jpg"/>
 
+[![](https://img.shields.io/badge/Repository-tuya__door__sensor__ts0203__zed-blue.svg?logo=github)](https://github.com/slacky1965/tuya_door_sensor_ts0203_zed)
+[![](https://img.shields.io/github/v/release/slacky1965/tuya_door_sensor_ts0203_zed.svg)](https://github.com/slacky1965/tuya_door_sensor_ts0203_zed/releases)
+
 <!--
 | Custom Model | Zigbee Model | Z2M Model | Zigbee Manufacturer | Manufacturer | Update method | Photo    |
 |:------------:|:------------:|:---------:|:-------------------:|:------------:|:-------------:|:--------:|
